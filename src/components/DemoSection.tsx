@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { Play } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
+import demoVideo from '../assets/demo.mp4'
 
 export function DemoSection() {
   const [isVideoVisible, setIsVideoVisible] = useState(false);
@@ -50,7 +51,7 @@ export function DemoSection() {
           ) : (
             <div className="aspect-video relative rounded-xl overflow-hidden bg-black">
               <video
-                src="/src/assets/demo.mp4"
+                src={demoVideo}
                 controls
                 autoPlay
                 className="w-full h-full object-cover"
