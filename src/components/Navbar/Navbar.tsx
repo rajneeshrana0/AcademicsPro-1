@@ -4,6 +4,7 @@ import { Menu, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { NavLink } from './NavLink';
 import { MobileMenu } from './MobileMenu';
+import Logo from '../../assets/logo.png'
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -32,17 +33,19 @@ export function Navbar() {
         transition={{ type: 'spring', stiffness: 300, damping: 30 }}
       >
         <div className="container mx-auto px-4">
-          <div className="h-16 flex items-center justify-between gap-8">
+          <div className="h-16 flex items-center justify-between gap-8 p-8">
             <motion.a
               href="#"
-              className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary via-purple-500 to-pink-500"
+              className=" font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary via-purple-500 to-pink-500"
               whileHover={{ scale: 1.05 }}
               transition={{ type: 'spring', stiffness: 400, damping: 10 }}
             >
-              AcademicsPro
+              <img src={Logo} alt="Logo"
+              className='w-60'
+              />
             </motion.a>
 
-            <nav className="hidden md:flex items-center gap-2">
+            <nav className="hidden text-lg md:flex items-center gap-2 rounded-lg hover:rounded-xl">
               {navItems.map((item) => (
                 <NavLink key={item.label} href={item.href}>
                   {item.label}
@@ -50,8 +53,8 @@ export function Navbar() {
               ))}
             </nav>
 
-            <div className="hidden md:flex items-center gap-4">
-              <Button variant="ghost" className="hover:text-primary hover:bg-primary/10">
+            <div className="hidden md:flex  items-center gap-4">
+              <Button variant="ghost" className="hover:text-primary text-lg hover:bg-primary/10">
                 Sign In
               </Button>
               <Button variant="glow" className="group">
