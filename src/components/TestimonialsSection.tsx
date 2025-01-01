@@ -11,31 +11,37 @@ import { Star } from 'lucide-react';
 
 const testimonials = [
   {
-    name: 'Sarah Johnson',
+    name: 'Rajneesh Rana',
     role: 'School Principal',
     content: 'This platform has revolutionized how we manage our school. The efficiency gains are remarkable!',
     rating: 5
   },
   {
-    name: 'Michael Chen',
+    name: 'Mihir Jain',
     role: 'Teacher',
     content: 'The grading and attendance features save me hours every week. Highly recommended!',
     rating: 5
   },
   {
-    name: 'Sarah Johnson',
+    name: 'Rohit Indra',
     role: 'School Principal',
     content: 'This platform has revolutionized how we manage our school. The efficiency gains are remarkable!',
     rating: 5
   },
   {
-    name: 'Michael Chen',
+    name: 'Neeraj Sharma',
     role: 'Teacher',
     content: 'The grading and attendance features save me hours every week. Highly recommended!',
     rating: 5
   },
   {
-    name: 'Emily Rodriguez',
+    name: 'Sumit Singh',
+    role: 'Teacher',
+    content: 'The grading and attendance features save me hours every week. Highly recommended!',
+    rating: 5
+  },
+  {
+    name: 'Aryan Sharma',
     role: 'Parent',
     content: 'I love being able to track my child\'s progress and communicate with teachers easily.',
     rating: 5
