@@ -1,0 +1,64 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 224 71% 4%;
+    --foreground: 213 31% 91%;
+    --card: 224 71% 4%;
+    --card-foreground: 213 31% 91%;
+    --popover: 224 71% 4%;
+    --popover-foreground: 213 31% 91%;
+    --primary: 263 70% 50%;
+    --primary-foreground: 210 20% 98%;
+    --secondary: 215 27% 11%;
+    --secondary-foreground: 210 20% 98%;
+    --muted: 215 27% 11%;
+    --muted-foreground: 217.9 10.6% 64.9%;
+    --accent: 215 27% 11%;
+    --accent-foreground: 210 20% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 20% 98%;
+    --border: 215 27% 11%;
+    --input: 215 27% 11%;
+    --ring: 263 70% 50%;
+  }
+}
+
+@layer base {
+  body {
+    @apply bg-background text-foreground;
+    background: radial-gradient(circle at 50% 50%, hsl(var(--primary)/0.15), transparent 1200px),
+                radial-gradient(circle at 0% 0%, hsl(var(--primary)/0.1), transparent 800px);
+  }
+}
+
+/* Animated background grid */
+.bg-grid {
+  background-size: 50px 50px;
+  background-image: linear-gradient(to right, hsl(var(--primary)/0.1) 1px, transparent 1px),
+                    linear-gradient(to bottom, hsl(var(--primary)/0.1) 1px, transparent 1px);
+  mask-image: radial-gradient(black, transparent 75%);
+}
+
+/* Glow effects */
+.glow {
+  position: relative;
+}
+
+.glow::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  background: linear-gradient(to right, hsl(var(--primary)), hsl(var(--primary)/0.5));
+  border-radius: inherit;
+  z-index: -1;
+  filter: blur(8px);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.glow:hover::before {
+  opacity: 1;
+}
