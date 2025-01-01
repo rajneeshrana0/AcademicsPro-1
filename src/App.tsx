@@ -10,6 +10,7 @@ import { PricingSection } from '@/components/PricingSection';
 import { FAQSection } from '@/components/FAQSection';
 import { CTASection } from '@/components/CTASection';
 import { Footer } from '@/components/Footer';
+import { FeaturesOrbit } from './components/FeaturesOrbit';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
       <ModulesSection />
       <TestimonialsSection />
       <PricingSection />
+      <FeaturesOrbit />
       <FAQSection />
       <CTASection />
       <Footer />

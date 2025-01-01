@@ -10,7 +10,7 @@ const modules = [
     icon: GraduationCap,
     title: 'Comprehensive Student Management',
     description: 'Everything students need for a successful academic journey',
-    features: ['Digital Student Profiles', 'Attendance Tracking', 'Grade Management', 'Course Registration']
+    features: ['Digital Student Profiles', 'Attendance Tracking', 'Grade Management', 'Course Registration','View grades and attendance','Track academic progress','Make fee payments securely through Razorpay','Access learning paths and assignments']
   },
   {
     id: 'teacher',
@@ -18,7 +18,7 @@ const modules = [
     icon: Users,
     title: 'Efficient Teaching Tools',
     description: 'Empower teachers with modern educational tools',
-    features: ['Lesson Planning', 'Assignment Management', 'Student Performance Tracking', 'Resource Library']
+    features: ['Lesson Planning', 'Assignment Management', 'Student Performance Tracking', 'Resource Library','Manage classes and lesson plans','Track attendance and grades','Communicate with students and parents']
   },
   {
     id: 'parent',
@@ -26,7 +26,7 @@ const modules = [
     icon: UserSquare2,
     title: 'Stay Connected with Your Child\'s Progress',
     description: 'Keep parents involved in their children\'s education',
-    features: ['Academic Progress Monitoring', 'Fee Payment Portal', 'Teacher Communication', 'Event Calendar']
+    features: ['Academic Progress Monitoring', 'Fee Payment Portal', 'Teacher Communication', 'Event Calendar','Track student progress, attendance, and grades','Pay fees online','Communicate with teachers and school staff']
   },
   {
     id: 'admin',
@@ -34,8 +34,32 @@ const modules = [
     icon: Building2,
     title: 'Complete Administrative Control',
     description: 'Streamline school operations efficiently',
-    features: ['Institution Management', 'Staff Administration', 'Financial Overview', 'Report Generation']
-  }
+    features: ['Institution Management', 'Staff Administration', 'Financial Overview', 'Report Generation','Manage students, teachers, and parent profiles','Track attendance and grades','Manage fees, transport, hostel, and library resources','Generate school reports']
+  },
+  // {
+  //   id: 'library',
+  //   label: 'Library Management',
+  //   icon: Book,
+  //   title: 'Complete Administrative Control',
+  //   description: 'Streamline school operations efficiently',
+  //   features: ['Search and borrow books','Track overdue books and send reminders','View book inventory and availability']
+  // },
+  // {
+  //   id: 'transport',
+  //   label: 'Transport Management',
+  //   icon: Bus,
+  //   title: 'Complete Administrative Control',
+  //   description: 'Streamline school operations efficiently',
+  //   features: ['Manage routes and schedules','Notify parents about delays or changes']
+  // },
+  // {
+  //   id: 'hostel',
+  //   label: 'Hostel Management',
+  //   icon: Home,
+  //   title: 'Complete Administrative Control',
+  //   description: 'Streamline school operations efficiently',
+  //   features: ['Allocate and manage hostel rooms','Collect hostel fees','Track student occupancy']
+  // }
 ];
 
 export function ModulesSection() {
