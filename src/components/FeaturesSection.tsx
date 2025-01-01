@@ -37,7 +37,7 @@ const advancedFeatures = [
 
 export function FeaturesSection() {
   return (
-    <section className="py-24 bg-background">
+    <section className="py-24 bg-background p-12">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

@@ -26,14 +26,14 @@ const orbitalConfigs = [
 
 export function FeaturesOrbit() {
   return (
-    <div className="h-auto w-full mt-24 flex flex-col items-center justify-center p-4 overflow-hidden">
+    <div className=" w-full  flex flex-col items-center justify-center  overflow-hidden p-16">
       {/* Animated background */}
       <div className="absolute inset-0 bg-grid opacity-20" />
       <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-primary/5" />
 
-      <div className="container mx-auto flex flex-col lg:flex-row items-center gap-16 px-4 py-12">
+      <div className="container mx-auto flex flex-col lg:flex-row items-center gap-16 px-4  ">
         {/* Left side - Feature list */}
-        <div className="lg:w-1/2 space-y-8 relative">
+        <div className="lg:w-1/2 space-y-8 relative cursor-pointer">
           <div className="relative space-y-4">
             <div className="absolute -left-8 -top-8 w-32 h-32 bg-primary/30 rounded-full blur-3xl animate-glow" />
             <h2 className="relative text-4xl sm:text-5xl font-bold">
@@ -76,7 +76,7 @@ export function FeaturesOrbit() {
         </div>
 
         {/* Right side - Orbital system */}
-        <div className="lg:w-1/2 relative">
+        <div className="lg:w-1/2 relative p-16">
           <div className="relative aspect-square w-[90%] sm:max-w-[400px] md:max-w-[500px] lg:max-w-[600px] mx-auto">
             {/* Core */}
             <div className="absolute inset-1/4 rounded-full bg-gradient-to-br from-primary/30 to-primary/5 backdrop-blur-xl animate-pulse">
