@@ -74,8 +74,11 @@ export function PricingSection() {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
-              <Card className="relative h-full hover:shadow-lg transition-shadow">
-                <CardHeader>
+              <Card className="relative group h-full overflow-hidden transition-all duration-300">
+                {/* Light effect with gradient color */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[rgba(59,130,246,0.5)] via-transparent to-transparent opacity-0 group-hover:opacity-60 transition-opacity z-0"></div>
+
+                <CardHeader className="relative z-10">
                   <CardTitle>
                     <h3 className="text-2xl font-bold">{plan.name}</h3>
                     <div className="mt-4">
@@ -85,7 +88,7 @@ export function PricingSection() {
                   </CardTitle>
                   <p className="text-muted-foreground">{plan.description}</p>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="relative z-10">
                   <ul className="space-y-4">
                     {plan.features.map((feature) => (
                       <li key={feature} className="flex items-center gap-2">
@@ -96,6 +99,9 @@ export function PricingSection() {
                   </ul>
                   <Button className="w-full mt-8">Get Started</Button>
                 </CardContent>
+
+                {/* Hover effects for translation */}
+                <div className="group-hover:relative group-hover:z-10 group-hover:translate-x-8 group-hover:translate-y-4 group-hover:scale-105 transition-all duration-300 transform group-hover:origin-top group-hover:scale-y-105"></div>
               </Card>
             </motion.div>
           ))}
