@@ -14,7 +14,7 @@ import { FeaturesOrbit } from './components/FeaturesOrbit';
 
 function App() {
   return (
-    <div className="min-h-screen bg-background overflow-x: hidden">
+    <div className="min-h-screen bg-background overflow-x: hidden w-full">
       <Navbar />
       <HeroSection />
       <FeaturesSection />
