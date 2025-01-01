@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Laptop, GraduationCap, Users, Building } from 'lucide-react';
+import {  GraduationCap, Users, Building } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 const benefitsByRole = [

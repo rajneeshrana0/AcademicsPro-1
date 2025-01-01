@@ -52,7 +52,7 @@ export function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.6 }}
         >
-          {stats.map((stat, index) => (
+          {stats.map((stat) => (
             <motion.div
               key={stat.label}
               className="flex flex-col items-center p-6 bg-card/50 backdrop-blur-sm rounded-lg border border-border/50"
