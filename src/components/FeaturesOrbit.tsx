@@ -1,4 +1,4 @@
-import { Brain, Rocket, Zap,  Globe2, Wifi, Sparkles, Book, School, BanknoteIcon } from 'lucide-react';
+import { Brain, Rocket, Zap,  Globe2, Wifi, Sparkles, Book, School, BanknoteIcon,Database  } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const features = [
@@ -20,8 +20,9 @@ const features = [
 ];
 
 const orbitalConfigs = [
-  { icons: [Book, School, BanknoteIcon], radius: 32, duration: 25, reverse: false },
+  { icons: [Book, School, BanknoteIcon,Database], radius: 32, duration: 25, reverse: false },
   { icons: [Rocket, Globe2, Wifi, Zap], radius: 44, duration: 30, reverse: true },
+  // { icons: [Rocket, Globe2, Wifi, Zap], radius: 44, duration: 30, reverse: true },
 ];
 
 export function FeaturesOrbit() {

@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { NavLink } from './NavLink';
 import { MobileMenu } from './MobileMenu';
 import Logo from '../../assets/logo.png'
+import { Link } from 'react-router';
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -35,7 +36,7 @@ export function Navbar() {
         <div className="container mx-auto px-4">
           <div className="h-16 flex items-center justify-between gap-8 p-8">
             <motion.a
-              href="#"
+              href="/"
               className=" font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary via-purple-500 to-pink-500"
               whileHover={{ scale: 1.05 }}
               transition={{ type: 'spring', stiffness: 400, damping: 10 }}
@@ -54,13 +55,13 @@ export function Navbar() {
             </nav>
 
             <div className="hidden md:flex  items-center gap-4">
-              <Button variant="ghost" className="hover:text-primary text-lg hover:bg-primary/10">
-                Sign In
-              </Button>
+              
+              <Link to="/login">
               <Button variant="glow" className="group">
                 <span>Get Started</span>
                 <Sparkles className="w-4 h-4 ml-2 group-hover:animate-pulse" />
               </Button>
+              </Link>
             </div>
 
             <Button

@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { 
   BookOpen, Users, UserSquare2, Building2, 
-  Brain, ChartBar, Video, Wallet 
+  Brain, ChartBar, Video, Wallet, 
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
@@ -18,7 +18,7 @@ const features = [
   },
   {
     title: 'For Parents',
-    icon: UserSquare2, // Changed from ParentIcon to UserSquare2
+    icon: UserSquare2, 
     items: ['Real-time Updates', 'Fee Payment', 'Teacher Communication', 'Progress Tracking']
   },
   {
@@ -52,7 +52,7 @@ export function FeaturesSection() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16 ">
           {features.map((feature, index) => (
             <motion.div
               key={feature.title}
@@ -61,7 +61,7 @@ export function FeaturesSection() {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
-              <Card className="h-full hover:shadow-lg transition-shadow">
+              <Card className="h-full hover:shadow-lg transition-shadow cursor-pointer   ">
                 <CardHeader>
                   <feature.icon className="h-8 w-8 text-primary mb-4" />
                   <CardTitle>{feature.title}</CardTitle>
