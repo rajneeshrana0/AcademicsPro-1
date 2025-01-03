@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { NavLink } from './NavLink';
 import { MobileMenu } from './MobileMenu';
 import Logo from '../../assets/logo.png'
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
