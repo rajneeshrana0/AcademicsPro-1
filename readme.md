@@ -1,4 +1,3 @@
-Here’s a sample `README.md` file for your   Comprehensive School Management System (AcademicsPro)   project:
 
 ```markdown
   Comprehensive School Management System (CSMS)
