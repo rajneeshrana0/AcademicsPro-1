@@ -67,7 +67,7 @@ function Sidebar() {
   return (
     <div className="h-screen flex flex-col">
       {/* Navbar */}
-      <div className="flex items-center justify-between px-4 bg-card shadow-md w-full p-6">
+      <div className="flex items-center justify-between px-4 bg-card  w-full p-6 border-[1px_0px_0px_0px_white]">
         <div className="flex items-center">
           <img src={Logo} alt="Logo" className="w-40 cursor-pointer" />
         </div>
@@ -91,12 +91,12 @@ function Sidebar() {
         </div>
       </div>
 
-      <div className="flex flex-1 relative  ">
+    
         {/* Sidebar */}
         <div className="flex flex-1 relative">
           
           <div
-            className={`h-full bg-card shadow-lg transition-all duration-300 ${
+            className={`h-full bg-card  transition-all duration-300 shadow-[1px_0px_0px_0px_white] ${
               sidebarCollapsed ? "w-16" : "w-48"
             } flex flex-col`}
           >
@@ -152,7 +152,7 @@ function Sidebar() {
 
     
       </div>
-    </div>
+   
   );
 }
 
