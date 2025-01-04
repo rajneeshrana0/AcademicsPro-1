@@ -1,7 +1,7 @@
-// src/App.js
 import { useState } from "react";
 import { AiOutlineHome, AiOutlineUser, AiOutlineSetting } from "react-icons/ai";
 import Logo from "@/assets/logo.png";
+import AdminLogo from '@/assets/p.jpg'
 
 function Sidebar() {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
@@ -15,7 +15,6 @@ function Sidebar() {
     setDropdownOpen(!dropdownOpen);
   };
 
-  // Array of sidebar items
   const sidebarItems = [
     {
       name: "Home",
@@ -65,94 +64,74 @@ function Sidebar() {
   ];
 
   return (
-    <div className="h-screen flex flex-col">
-      {/* Navbar */}
-      <div className="flex items-center justify-between px-4 bg-card  w-full p-6 border-[1px_0px_0px_0px_white]">
-        <div className="flex items-center">
-          <img src={Logo} alt="Logo" className="w-40 cursor-pointer" />
-        </div>
-        <div className="relative">
-          <img
-            src={Logo}
-            alt="Profile"
-            className="h-8 w-8 cursor-pointer"
-            onClick={toggleDropdown}
-          />
-          {dropdownOpen && (
-            <div className="absolute right-0 mt-2 w-40 bg-card rounded shadow-lg z-10">
-              <button className="block px-4 py-2 w-full text-left hover:bg-muted">
-                View Profile
+    <div className="h-screen grid grid-cols-[auto,1fr]">
+      {/* Sidebar */}
+      <div
+        className={`bg-card h-full transition-all duration-300 shadow-[1px_0px_0px_0px_white] ${
+          sidebarCollapsed ? "w-16" : "w-48"
+        } overflow-hidden flex flex-col`}
+      >
+        {/* Sidebar Toggle Button */}
+        <button
+          className={`bg-primary text-white p-2 rounded-md m-2 ${
+            sidebarCollapsed ? "ml-1" : "ml-auto"
+          }`}
+          onClick={toggleSidebar}
+        >
+          {sidebarCollapsed ? ">" : "<"}
+        </button>
+
+        {/* Sidebar Items */}
+        <ul className="mt-4 flex-1">
+          {sidebarItems.map((item) => (
+            <li key={item.name} className="mb-4 flex items-center">
+              <button
+                onClick={item.action}
+                className="flex items-center p-2 w-full hover:bg-muted transition duration-150"
+              >
+                {item.icon}
+                {!sidebarCollapsed && <span className="ml-4">{item.name}</span>}
               </button>
-              <button className="block px-4 py-2 w-full text-left hover:bg-muted">
-                Logout
-              </button>
-            </div>
-          )}
-        </div>
+            </li>
+          ))}
+        </ul>
       </div>
 
-    
-        {/* Sidebar */}
-        <div className="flex flex-1 relative">
-          
-          <div
-            className={`h-full bg-card  transition-all duration-300 shadow-[1px_0px_0px_0px_white] ${
-              sidebarCollapsed ? "w-16" : "w-48"
-            } flex flex-col`}
-          >
-            <ul className="mt-4 flex-1">
-              {sidebarItems.map((item, index) => (
-                <li key={item.name} className="mb-4 flex items-center relative">
-                  {index === 0 && (
-                    <button
-                      className="absolute -right-2 top-1/2 transform -translate-y-1/2 bg-primary text-white p-1 rounded-full shadow"
-                      onClick={toggleSidebar}
-                    >
-                      {sidebarCollapsed ? ">" : "<"}
-                    </button>
-                  )}
-                  <button
-                    onClick={item.action}
-                    className="flex items-center p-2 w-full hover:bg-muted transition duration-150"
-                  >
-                    {item.icon}
-                    {!sidebarCollapsed && (
-                      <span className="ml-4">{item.name}</span>
-                    )}
-                  </button>
-                </li>
-              ))}
-            </ul>
+      {/* Main Content */}
+      <div className="flex flex-col w-full ml-2">
+        {/* Navbar */}
+        <nav className="flex items-center justify-between px-4 bg-card w-full p-6 shadow-[0px_1px_0px_0px_white]  ">
+          <div className="flex items-center">
+            <img src={Logo} alt="Logo" className="w-40 cursor-pointer" />
           </div>
-
-          {/* Profile Card */}
-          <div
-            className={`absolute bottom-4 left-0 px-4 ${
-              sidebarCollapsed ? "w-16" : "w-48" 
-            } bg-card shadow-lg transition-all duration-300 flex items-center space-x-4 p-4 rounded-lg`}
-          >
+          <div className="relative mr-8 flex gap-10  ">
+            <span className="flex items-center">Welcome Rajneesh </span>
             <img
-              src="https://randomuser.me/api/portraits/men/1.jpg" 
-              alt="User"
-              className="w-16 h-16 rounded-full object-cover"
+              src={AdminLogo}
+              alt="Profile"
+              className="h-10 w-10 cursor-pointer rounded-full "
+              onClick={toggleDropdown}
             />
-            {!sidebarCollapsed && (
-              <div className="flex flex-col">
-                <span className="font-semibold text-lg">Rajneesh Rana</span>
-                <span className="text-sm text-gray-500">Male</span>
+            {dropdownOpen && (
+              <div className="absolute right-0 mt-16 mr-4 w-40 bg-card rounded  z-10  shadow-[0px_1px_0px_0px_white]  ">
+                <button className="block px-4 py-2 w-full text-left hover:bg-muted">
+                  View Profile
+                </button>
+                <button className="block px-4 py-2 w-full text-left hover:bg-muted">
+                  Logout
+                </button>
               </div>
             )}
           </div>
+        </nav>
 
-          {/* Main Content */}
-          <div className="flex-1 p-4 bg-background text-foreground ml-4">
-            <h1 className="text-2xl font-bold">Dashboard Content Here</h1>
-          </div>
-        </div>
-
-    
+        {/* Content */}
+        <main className="flex-1 p-4 bg-background text-foreground mt-4 ml-4">
+          <h1 className="text-2xl font-bold">Dashboard Content Here</h1>
+        </main>
       </div>
-   
+      
+    </div>
   );
 }
 
