@@ -1,12 +1,24 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import {
   AiOutlineHome,
   AiOutlineUser,
   AiOutlineSetting,
+  AiOutlineNotification,
 } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import Logo from "@/assets/logo.png";
 import AdminLogo from "@/assets/p.jpg";
+import { Dashboard } from "@/student/Dashboard";
+
+import { FeePaymentView } from "@/student/fees/FeePaymentView";
+import { AttendanceView } from "./attendance/AttendanceView";
+import { GradesView } from "./grades/GradesView";
+import { LibraryView } from "./library/LibraryView";
+import { LearningPathView } from "./learning/LearningPathView";
+import { TransportView } from "./transport/TransportView";
+import { ProfileView } from "./profile/ProfileView";
+
+// import { Home } from "./Home";
 
 function Sidebar() {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
@@ -115,7 +127,10 @@ function Sidebar() {
             <img src={Logo} alt="Logo" className="w-40 cursor-pointer" />
           </div>
           <div className="relative mr-8 flex gap-10 ">
-            <span className="flex items-center">Welcome Rajneesh </span>
+            <span className="flex items-center">
+              <AiOutlineNotification />
+              
+               </span>
             <img
               src={AdminLogo}
               alt="Profile"
@@ -137,8 +152,18 @@ function Sidebar() {
 
         {/* Content (This is where your routes will be rendered) */}
         <main className="flex-1 p-4 bg-background text-foreground mt-4 ml-4">
-          {/* You'll need to use React Router's Route component to define 
-              your routes and render the corresponding components here */}
+       {/* This os For Dashboard content Page  */}
+              <Dashboard />
+
+              <AttendanceView />
+              <GradesView />
+              <LibraryView />
+              <LearningPathView />
+              <TransportView />
+              <ProfileView />
+           
+              <FeePaymentView />
+
         </main>
       </div>
     </div>

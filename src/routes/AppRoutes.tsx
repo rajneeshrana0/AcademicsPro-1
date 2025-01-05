@@ -7,8 +7,8 @@ import Home from "@/pages/Home";
 import Sidebar from "@/components/Sidebar";
 import StuSide from "@/student/Sidebar";
 // import Sident from "@/student/Home"
-import Home1 from '@/student/Home'
-
+// import Home1 from '@/student/Home'
+// import { Dashboard } from "@/student/Dashboard ";
 
 const AppRoutes = () => {
   return (
@@ -28,7 +28,9 @@ const AppRoutes = () => {
 
 
       <Route path='/student' element={<StuSide/>} />
-      <Route path="/home" element={<Home1 />} />
+      {/* <Route path='/home' element={<Dashboard/>} /> */}
+      {/* <Route path="/home" element={<Home1 />} /> */}
+      {/* <Route path="/home" element={<Home1 />} /> */}
       {/* <Route path='/student-dashboard' element={<Sident/>} /> */}
       
     </Routes>
