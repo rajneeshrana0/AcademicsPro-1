@@ -34,7 +34,7 @@ export function Navbar() {
         transition={{ type: 'spring', stiffness: 300, damping: 30 }}
       >
         <div className="container mx-auto px-4">
-          <div className="h-16 flex items-center justify-between gap-8 p-8">
+          <div className="h-16 flex items-center justify-between gap-8 ">
             <motion.a
               href="/"
               className=" font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary via-purple-500 to-pink-500"
