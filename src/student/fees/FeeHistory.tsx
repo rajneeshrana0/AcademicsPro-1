@@ -16,7 +16,7 @@ const feeHistory = [
     term: 'Fall 2023',
     amount: 200,
     date: '2023-09-10',
-    type: 'Laboratory Fee',
+    type: 'Library Fee',
     status: 'Paid'
   }
 ];

@@ -16,7 +16,7 @@ const pendingFees = [
     term: 'Spring 2024',
     amount: 200,
     dueDate: '2024-03-25',
-    type: 'Laboratory Fee'
+    type: 'Library Fee'
   }
 ];
 
