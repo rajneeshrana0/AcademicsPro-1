@@ -18,16 +18,16 @@ export function DashboardCard({ title, value, icon, className }: DashboardCardPr
       className="w-full"
     >
       <Card className={cn(
-        "relative overflow-hidden p-6 glow",
-        "bg-secondary/30 backdrop-blur-xl border-primary/20",
+        "relative overflow-hidden p-6 glow hover:text-white",
+        "bg-secondary/30 backdrop-blur-xl border-primary/20 hover:text-white",
         className
       )}>
         <div className="absolute top-0 right-0 p-3 text-primary/40">
           {icon}
         </div>
-        <div className="space-y-2">
-          <p className="text-sm text-muted-foreground">{title}</p>
-          <p className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/50">
+        <div className="space-y-2 hover:text-white">
+          <p className="text-sm text-muted-foreground hover:text-white">{title}</p>
+          <p className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/50 hover:text-white">
             {value}
           </p>
         </div>

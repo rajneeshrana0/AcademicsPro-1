@@ -1,7 +1,8 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Sparkles } from 'lucide-react';
+import { Sparkles, Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
+import Logo from '@/assets/logo.png'
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -57,38 +58,48 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
     <AnimatePresence>
       {isOpen && (
         <>
+          {/* Overlay for backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 0.5 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black backdrop-blur-lg"
+            className="fixed inset-0 bg-black backdrop-blur-lg z-40"
             onClick={onClose} // Close when clicking the overlay
           />
+
+          {/* Menu container */}
           <motion.div
             initial="closed"
             animate="open"
             exit="closed"
             variants={menuVariants}
-            className="fixed right-0 top-0 bottom-0 w-full cursor-pointer sm:w-80 bg-background/95 backdrop-blur-xl border-l border-primary/20 shadow-2xl"
+            className="fixed right-0 top-0 bottom-0 w-full sm:w-80 bg-background/95 backdrop-blur-xl border-l border-primary/20 shadow-2xl z-50"
           >
             <div className="p-6">
+              {/* Header with close button */}
               <div className="flex justify-between items-center mb-8">
+
+                <img src={Logo} 
+                className='w-60'
+                />
                 <motion.span
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary via-purple-500 to-pink-500"
                 >
-                  {/* AcademicsPro */}
+                  {/* Add logo or branding here */}
                 </motion.span>
                 <Button
                   variant="ghost"
                   size="icon"
                   onClick={onClose} // Close the menu when clicking the close button
-                  className="hover:bg-primary/10"
+                  className="hover:bg-primary/10 cursor-pointer"
                 >
                   <X className="h-6 w-6" />
                 </Button>
               </div>
+
+              {/* Navigation links */}
               <nav className="space-y-2">
                 {menuItems.map((item, i) => (
                   <motion.a
@@ -102,6 +113,8 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                     {item.label}
                   </motion.a>
                 ))}
+
+                {/* Additional button */}
                 <motion.div
                   custom={menuItems.length + 1}
                   variants={itemVariants}
@@ -124,17 +137,23 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
 export default function MobileMenuContainer() {
   const [isOpen, setIsOpen] = useState(false);
 
-
-
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
 
-
-
   return (
     <div>
-      <Button onClick={toggleMenu}>Open Menu</Button>
+      {/* Toggle Button */}
+      <Button
+        onClick={toggleMenu}
+        variant="ghost"
+        size="icon"
+        className="fixed top-4 right-4 z-50"
+      >
+        {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+      </Button>
+
+      {/* Mobile Menu */}
       <MobileMenu isOpen={isOpen} onClose={toggleMenu} />
     </div>
   );

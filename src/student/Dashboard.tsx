@@ -42,28 +42,25 @@ export function Dashboard() {
         <DashboardCard
           title="Attendance"
           value="92%"
-          icon={<Calendar className="w-6 h-6" />}
+          icon={<Calendar className="w-6 h-6 " />}
         />
         <DashboardCard
           title="Current GPA"
           value="3.8"
-          icon={<GraduationCap className="w-6 h-6" />}
+          icon={<GraduationCap className="w-6 h-6 " />}
         />
         <DashboardCard
           title="Courses"
           value="6"
-          icon={<BookOpen className="w-6 h-6" />}
+          icon={<BookOpen className="w-6 h-6 " />}
         />
         <DashboardCard
           title="Due Fees"
           value="₹1,250"
-          icon={<CreditCard className="w-6 h-6" />}
+          icon={<CreditCard className="w-6 h-6  " />}
         />
       </motion.div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Add more dashboard sections here */}
-      </div>
     </div>
   );
 }
