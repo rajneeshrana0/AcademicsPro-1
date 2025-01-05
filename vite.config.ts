@@ -12,4 +12,12 @@ export default defineConfig({
   optimizeDeps: {
     exclude: ['lucide-react'],
   },
+  server: {
+    // Set up a proxy or configure other server options if needed
+  },
+  build: {
+    rollupOptions: {
+      input: path.resolve(__dirname, 'index.html'),
+    },
+  },
 });
