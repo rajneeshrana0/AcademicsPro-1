@@ -8,13 +8,13 @@ const borrowedBooks = [
   {
     title: 'Advanced Mathematics',
     dueDate: '2024-03-20',
-    status: 'Due in 5 days'
+    status: 'Due in 5 days',
   },
   {
     title: 'Physics Fundamentals',
     dueDate: '2024-03-25',
-    status: 'Due in 10 days'
-  }
+    status: 'Due in 10 days',
+  },
 ];
 
 export function LibraryView() {
@@ -25,21 +25,25 @@ export function LibraryView() {
       className="p-8 space-y-6"
     >
       <div className="space-y-6">
+        {/* Header */}
         <h2 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/50">
           Library
         </h2>
 
+        {/* Search Input */}
         <div className="flex gap-4">
-          <Input
-            placeholder="Search books..."
-            className="bg-secondary/30 border-primary/20"
-            prefix={<Search className="w-4 h-4 text-muted-foreground" />}
-          />
-          <Button className="bg-primary/20 hover:bg-primary/30">
-            Search
-          </Button>
+          <div className="relative w-full">
+            {/* Search Icon */}
+            <Search className="absolute top-1/2 left-3 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+            <Input
+              placeholder="Search books..."
+              className="pl-10 bg-secondary/30 border-primary/20"
+            />
+          </div>
+          <Button className="bg-primary/20 hover:bg-primary/30">Search</Button>
         </div>
 
+        {/* Borrowed Books Section */}
         <div className="space-y-4">
           <h3 className="text-xl font-semibold">Currently Borrowed</h3>
           {borrowedBooks.map((book, index) => (
