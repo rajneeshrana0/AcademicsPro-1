@@ -17,6 +17,7 @@ import { LibraryView } from "./library/LibraryView";
 import { LearningPathView } from "./learning/LearningPathView";
 import { TransportView } from "./transport/TransportView";
 import { ProfileView } from "./profile/ProfileView";
+import Store from "./store/Store";
 
 // import { Home } from "./Home";
 
@@ -154,7 +155,7 @@ function Sidebar() {
         <main className="flex-1 p-4 bg-background text-foreground mt-4 ml-4">
        {/* This os For Dashboard content Page  */}
               <Dashboard />
-
+                <Store />
               <AttendanceView />
               <GradesView />
               <LibraryView />

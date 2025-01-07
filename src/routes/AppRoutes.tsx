@@ -6,6 +6,7 @@ import ForgotPassword from '@/pages/ForgotPassword';
 import Home from "@/pages/Home";
 import Sidebar from "@/components/Sidebar";
 import StuSide from "@/student/Sidebar";
+// import Store from "@/student/store/Store";
 // import Sident from "@/student/Home"
 // import Home1 from '@/student/Home'
 // import { Dashboard } from "@/student/Dashboard ";
@@ -28,6 +29,7 @@ const AppRoutes = () => {
 
 
       <Route path='/student' element={<StuSide/>} />
+      {/* <Route path="/" element={<Store />} /> */}
       {/* <Route path='/home' element={<Dashboard/>} /> */}
       {/* <Route path="/home" element={<Home1 />} /> */}
       {/* <Route path="/home" element={<Home1 />} /> */}

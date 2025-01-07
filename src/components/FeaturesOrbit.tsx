@@ -58,13 +58,13 @@ export function FeaturesOrbit() {
                   key={index}
                   className="group relative p-6 rounded-2xl bg-secondary/30 backdrop-blur-sm border border-primary/10 hover:border-primary/50 transition-all duration-500 hover:translate-x-2"
                 >
-                  <div className="absolute inset-0 bg-primary/5 rounded-2xl blur-xl group-hover:bg-primary/10 transition-all duration-500" />
+                  <div className="absolute inset-0 bg-primary/5 rounded-2xl blur-xl group-hover:bg-primary/10 transition-all duration-500 " />
                   <div className="relative flex items-start gap-4">
                     <div className="p-3 rounded-xl bg-primary/10 backdrop-blur-sm group-hover:bg-primary/20 transition-all duration-500">
                       <Icon className="w-6 h-6 text-primary group-hover:scale-110 transition-transform duration-500" />
                     </div>
                     <div>
-                      <h3 className="font-bold text-lg sm:text-xl mb-2 bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/70">
+                      <h3 className="font-bold text-lg sm:text-xl mb-2 bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/70 ">
                         {feature.title}
                       </h3>
                       <p className="text-muted-foreground leading-relaxed whitespace-pre-line">{feature.description}</p>
@@ -77,7 +77,7 @@ export function FeaturesOrbit() {
         </div>
 
         {/* Right side - Orbital system */}
-        <div className="lg:w-1/2 relative p-16">
+        <div className="w-full lg:w-1/2 relative p-16 ">
           <div className="relative aspect-square w-[90%] sm:max-w-[400px] md:max-w-[500px] lg:max-w-[600px] mx-auto">
             {/* Core */}
             <div className="absolute inset-1/4 rounded-full bg-gradient-to-br from-primary/30 to-primary/5 backdrop-blur-xl animate-pulse">

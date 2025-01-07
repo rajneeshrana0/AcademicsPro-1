@@ -19,10 +19,10 @@ export const buttonVariants = cva(
           "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
-        glow: "relative bg-background border border-primary/50 text-primary shadow-[0_0_15px_rgba(0,0,0,0.6)] hover:shadow-primary/25 hover:scale-105 hover:border-primary transition-all active:scale-95",
+        glow: "relative bg-background border border-primary/50 text-primary shadow-[0_0_15px_rgba(0,0,0,0.6)] hover:shadow-primary/25 hover:scale-105 hover:border-primary transition-all active:scale-95 ",
       },
       size: {
-        default: "h-9 px-4 py-2",
+        default: "h-9 px-4 py-2 rounded-sm",
         sm: "h-8 rounded-md px-3 text-xs",
         lg: "h-10 rounded-lg px-8",
         icon: "h-9 w-9",
@@ -56,4 +56,4 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   }
 );
 
-Button.displayName = "Button"; // Set a display name for easier debugging
+Button.displayName = "Button"; 

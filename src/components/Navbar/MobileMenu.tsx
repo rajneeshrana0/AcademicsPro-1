@@ -16,7 +16,7 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
     { label: 'About', href: '#about' },
     { label: 'Modules', href: '#modules' },
     { label: 'Pricing', href: '#pricing' },
-    { label: 'Contact', href: '#contact' },
+  //   { label: 'Contact', href: '#contact' },
   ];
 
   const menuVariants = {
