@@ -3,6 +3,7 @@ import { Sparkles, Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import Logo from '@/assets/logo.png'
+import { Link } from 'react-router-dom';
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -119,11 +120,13 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                   custom={menuItems.length + 1}
                   variants={itemVariants}
                   className="pt-4"
-                >
+                > 
+                <Link to="/login">
                   <Button variant="glow" className="w-full group">
                     <span>Get Started</span>
                     <Sparkles className="w-4 h-4 ml-2 group-hover:animate-pulse" />
                   </Button>
+                  </Link>
                 </motion.div>
               </nav>
             </div>
