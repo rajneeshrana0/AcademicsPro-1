@@ -6,6 +6,7 @@ import ForgotPassword from '@/pages/ForgotPassword';
 import Home from "@/pages/Home";
 import Sidebar from "@/components/Sidebar";
 import StuSide from "@/student/Sidebar";
+import Chat from "@/student/chat-room/Chat";
 // import Store from "@/student/store/Store";
 // import Sident from "@/student/Home"
 // import Home1 from '@/student/Home'
@@ -29,6 +30,7 @@ const AppRoutes = () => {
 
 
       <Route path='/student' element={<StuSide/>} />
+      <Route path="/chat-room" element={<Chat/>} />
       {/* <Route path="/" element={<Store />} /> */}
       {/* <Route path='/home' element={<Dashboard/>} /> */}
       {/* <Route path="/home" element={<Home1 />} /> */}

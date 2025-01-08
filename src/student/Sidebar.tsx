@@ -18,6 +18,7 @@ import { LearningPathView } from "./learning/LearningPathView";
 import { TransportView } from "./transport/TransportView";
 import { ProfileView } from "./profile/ProfileView";
 import Store from "./store/Store";
+import Chat from "./chat-room/Chat";
 
 // import { Home } from "./Home";
 
@@ -154,8 +155,9 @@ function Sidebar() {
         {/* Content (This is where your routes will be rendered) */}
         <main className="flex-1 p-4 bg-background text-foreground mt-4 ml-4">
        {/* This os For Dashboard content Page  */}
-              <Dashboard />
+                <Chat/>
                 <Store />
+              <Dashboard />
               <AttendanceView />
               <GradesView />
               <LibraryView />
