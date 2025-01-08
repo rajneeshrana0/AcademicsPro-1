@@ -38,10 +38,10 @@ export function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.4 }}
         >
-          <Link to='student'>
+          <Link to='/student'>
           <Button size="lg" className="group">
             Get Started
-            <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+            <ArrowRight className=" cursor-pointer ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
           </Button>
           </Link>
           <Button size="lg" variant="outline">
