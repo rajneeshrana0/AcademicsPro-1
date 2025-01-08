@@ -1,7 +1,6 @@
 import { ArrowRight, BookOpen, Users, Award } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
 
 export function HeroSection() {
   const stats = [
@@ -38,12 +37,10 @@ export function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.4 }}
         >
-          <Link to='/student'>
           <Button size="lg" className="group">
             Get Started
-            <ArrowRight className=" cursor-pointer ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+            <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
           </Button>
-          </Link>
           <Button size="lg" variant="outline">
             Explore Features
           </Button>

@@ -21,6 +21,7 @@ export function Navbar() {
     { label: 'About', href: '#about' },
     { label: 'Modules', href: '#modules' },
     { label: 'Pricing', href: '#pricing' },
+    { label: 'Test', href: '/student' },
   ];
 
   return (
