@@ -4,7 +4,7 @@ import Login from '@/pages/Login';
 import Signup from '@/pages/Signup';
 import ForgotPassword from '@/pages/ForgotPassword';
 import Home from "@/pages/Home";
-import Sidebar from "@/components/Sidebar";
+// import Sidebar from "@/components/Sidebar";
 import StuSide from "@/student/Sidebar";
 import Chat from "@/student/chat-room/Chat";
 // import Store from "@/student/store/Store";
@@ -20,7 +20,7 @@ const AppRoutes = () => {
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
-      <Route path="/sidebar" element={<Sidebar />} />
+      {/* <Route path="/sidebar" element={<Sidebar />} /> */}
       
 
 
