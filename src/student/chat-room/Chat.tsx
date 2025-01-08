@@ -14,7 +14,7 @@ function Chat() {
   const wsRef = useRef(null);
 
   useEffect(() => {
-    const ws = new WebSocket("ws://localhost:8080");
+    const ws = new WebSocket("http://localhost:3000");
 
     ws.onopen = () => {
       console.log("Connected to WebSocket server");

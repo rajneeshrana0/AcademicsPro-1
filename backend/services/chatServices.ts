@@ -7,8 +7,10 @@ interface User {
 
 const allSockets: User[] = [];
 
-const setupWebSocketServer = (port = 8080) => {
-  const wss = new WebSocketServer({ port });
+import { Server } from "http";
+
+const setupWebSocketServer = (server: Server) => {
+  const wss = new WebSocketServer({ server });
 
   wss.on("connection", (socket) => {
     console.log("New client connected");
@@ -66,7 +68,7 @@ const setupWebSocketServer = (port = 8080) => {
     });
   });
 
-  console.log(`WebSocket Server is running on port ${port}`);
+  console.log("WebSocket Server is running on the shared HTTP server");
 };
 
 export default setupWebSocketServer;
