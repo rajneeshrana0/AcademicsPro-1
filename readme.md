@@ -211,7 +211,7 @@
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/school-management-system.git
+   git clone https://github.com/rajneeshrana0/AcademicsPro.git
    ```
 
 2. Install dependencies for both frontend and backend:
