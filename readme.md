@@ -261,16 +261,3 @@ For any queries or contributions, please feel free to reach out at:
    Acknowledgments
 
 - Thanks to the open-source community for the libraries and tools used in this project.
-```
-
-    Key Sections of the README:
-
-1.   Overview  : A brief introduction to the project, summarizing the main goals and features.
-2.   Technology Stack  : Lists the technologies used in the project.
-3.   Features in Detail  : Breaks down the different modules (Admin, Teacher, Student, Parent, etc.) and their functionality.
-4.   Future Enhancements  : Lists potential features and improvements for the future.
-5.   Installation  : Provides clear instructions on how to set up and run the project locally.
-6.   License  : Specifies the project license (MIT License in this case).
-7.   Contact  : Information for reaching out for contributions or questions.
-
-This should give a comprehensive guide for developers, contributors, and users who wish to understand and work with your project.
