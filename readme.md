@@ -3,19 +3,6 @@
 ##Overview
 
 
-
-The   Comprehensive School Management System (CSMS)   is an all-in-one web platform that simplifies and streamlines school operations, offering tools for administrators, teachers, students, and parents. With features like student and teacher management, fee collection, library management, transport, hostel management, and more, CSMS provides a unified ecosystem to manage all school activities efficiently.
-
-    Key Features:
--   Admin Module  : Manage students, teachers, and parents, generate reports, and track school resources.
--   Student Module  : View grades, attendance, make fee payments, and access learning paths.
--   Teacher Module  : Manage classes, track attendance and grades, and create lesson plans.
--   Parent Module  : Track student performance, view fee status, and communicate with teachers.
--   Library Management  : Search, borrow, and return books, with real-time inventory tracking.
--   Transport Management  : Real-time vehicle tracking, route management, and student assignments.
--   Hostel Management  : Allocate rooms, manage hostel fees, and track student stay.
--   Fee Management  : Generate invoices, collect payments, and track fee status.
-
 ---
 
    Technology Stack
