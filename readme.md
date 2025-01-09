@@ -1,7 +1,7 @@
 
 ```markdown
   Comprehensive School Management System (CSMS)
-  Arayan joined the teeam
+  Arayan joined the teeam .Waitating For mihir to JOin
    Overview
 The   Comprehensive School Management System (CSMS)   is an all-in-one web platform that simplifies and streamlines school operations, offering tools for administrators, teachers, students, and parents. With features like student and teacher management, fee collection, library management, transport, hostel management, and more, CSMS provides a unified ecosystem to manage all school activities efficiently.
 
