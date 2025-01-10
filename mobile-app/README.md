@@ -1,4 +1,4 @@
-# flutter_application
+# academicspro
 
 A new Flutter project.
 
