@@ -2,20 +2,84 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+    :root {
+      --background: 224 71% 4%; /* #161a1d */
+      --foreground: 213 31% 91%; /* #e9e7ef */ /* Default text color */
+      --card: 224 71% 4%; /* #161a1d */
+      --card-foreground: 213 31% 91%; /* #e9e7ef */ /* Text color on cards */
+      --popover: 224 71% 4%; /* #161a1d */
+      --popover-foreground: 213 31% 91%; /* #e9e7ef */ /* Text color in popovers */
+      --primary: 263 70% 50%; /* #818cf8 */ 
+      --primary-foreground: 210 20% 98%; /* #f8fafc */ /* Text color on primary buttons/elements */
+      --secondary: 215 27% 11%; /* #1e293b */
+      --secondary-foreground: 210 20% 98%; /* #f8fafc */ /* Text color on secondary buttons/elements */
+      --muted: 215 27% 11%; /* #1e293b */
+      --muted-foreground: 217.9 10.6% 64.9%; /* #94a3b8 */ /* Text color on muted elements (e.g., disabled buttons) */
+      --accent: 215 27% 11%; /* #1e293b */
+      --accent-foreground: 210 20% 98%; /* #f8fafc */ /* Text color on accent elements */
+      --destructive: 0 62.8% 30.6%; /* #dc2626 */
+      --destructive-foreground: 210 20% 98%; /* #f8fafc */ /* Text color on destructive buttons */
+      --border: 215 27% 11%; /* #1e293b */
+      --input: 215 27% 11%; /* #1e293b */
+      --ring: 263 70% 50%; /* #818cf8 */
+    }
   }
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-}
+  
+  @layer base {
+    body {
+      @apply bg-background text-foreground;
+      background: radial-gradient(circle at 50% 50%, hsl(var(--primary)/0.15), transparent 1200px),
+                  radial-gradient(circle at 0% 0%, hsl(var(--primary)/0.1), transparent 800px);
+    }
+  }
+  
+  /* Animated background grid */
+  .bg-grid {
+    background-size: 50px 50px;
+    background-image: 
+      linear-gradient(to right, hsl(var(--primary)/0.1) 1px, transparent 1px),
+      linear-gradient(to bottom, hsl(var(--primary)/0.1) 1px, transparent 1px);
+    mask-image: radial-gradient(black, transparent 75%);
+  }
+  
+  /* Glow effects */
+  .glow {
+    position: relative;
+  }
+  
+  .glow::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    background: linear-gradient(to right, hsl(var(--primary)), hsl(var(--primary)/0.5));
+    border-radius: inherit;
+    z-index: -1;
+    filter: blur(8px);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  
+  .glow:hover::before {
+    opacity: 1;
+  }
+  
+  /* Animations */
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  
+  @keyframes glow {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+  }
+  
+  .animate-glow {
+    animation: glow 3s ease-in-out infinite;
+  }
