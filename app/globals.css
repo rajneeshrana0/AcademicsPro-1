@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+body {
+  margin: 0; 
+}
+html, body {
+  height: 100vh;
+}
 @layer base {
     :root {
       --background: 224 71% 4%; /* #161a1d */
