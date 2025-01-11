@@ -7,12 +7,12 @@
 
    Technology Stack
 
--   Frontend  : React.js, Tailwind CSS
--   Backend  : Node.js, Express.js
--   Database  : MongoDB
--   Payment Integration  : Razorpay
+-   Frontend  : Next js,Type Script Tailwind CSS
+-   Backend  : Node.js, Express.js, TypeScript
+-   Database  : Postgresql with prisma
+-   Payment Integration  : Razorpay & stripe both
 -   Email Integration  : Google SMTP
--   Real-Time Communication  : Socket.IO
+-   Real-Time Communication  : Websoclet
 -   Deployment  : Docker, CI/CD pipelines
 
 ---
