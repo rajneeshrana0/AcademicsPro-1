@@ -15,6 +15,11 @@ import Logo from "@/public/logo.png";
 import Dashboard from "./Dashboard";
 
 export function SidebarDemo({ children }: { children: React.ReactNode }) {
+
+  // const userRole = "admin"; // Example: "admin", "student", "teacher"
+
+  // // Get sidebar items based on the role
+  // const links = getSidebarItems(userRole);
   const links = [
     {
       label: "Dashboard",
@@ -95,7 +100,7 @@ export const Logos = () => {
     <Image
       src={Logo}
       alt="Company Logo"
-      width={200}
+      width={150}
 
     />
 
