@@ -1,14 +1,9 @@
+// [...nextauth].ts
+
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import prisma from "../../../../lib/prisma";
+import prisma from "../../../../lib/prisma"; 
 import bcrypt from "bcrypt";
-
-// Interface for the user object
-// interface User {
-//   id: string;
-//   email: string;
-//   role: string;
-// }
 
 const handler = NextAuth({
   providers: [
@@ -32,7 +27,10 @@ const handler = NextAuth({
             throw new Error("Invalid email or password"); 
           }
 
-          const passwordMatch = await bcrypt.compare(credentials.password, user.password);
+          const passwordMatch = await bcrypt.compare(
+            credentials.password,
+            user.password
+          );
           if (!passwordMatch) {
             throw new Error("Invalid email or password");
           }
@@ -40,7 +38,6 @@ const handler = NextAuth({
           return { id: user.id, email: user.email, role: user.role };
         } catch (error) {
           console.error("Error in authorization:", error);
-          // Optionally, you can re-throw the error or return a custom error object
           throw error; 
         }
       },
@@ -59,14 +56,14 @@ const handler = NextAuth({
       if (token) {
         session.user = {
           id: token.id as string,
-          email: token.email as string, // No need for ?? '' since it's already in the token
+          email: token.email as string,
           role: token.role as string,
         };
       }
       return session;
     },
   },
-  secret: process.env.NEXTAUTH_SECRET,
+  secret: process.env.NEXTAUTH_SECRET, 
   session: {
     strategy: "jwt",
     maxAge: 30 * 24 * 60 * 60, // 30 days
