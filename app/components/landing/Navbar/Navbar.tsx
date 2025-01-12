@@ -59,7 +59,7 @@ export function Navbar() {
 
             <div className="hidden md:flex  items-center gap-4">
               
-              <Link href="/login">
+              <Link href="/auth/signin">
               <Button variant="glow" className="group">
                 <span>Get Started</span>
                 <Sparkles className="w-4 h-4 ml-2 group-hover:animate-pulse" />
