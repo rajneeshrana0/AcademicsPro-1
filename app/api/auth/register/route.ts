@@ -8,7 +8,7 @@ import { NextResponse } from "next/server"; // Import NextResponse
 export async function POST(req: NextRequest) {
   const { email, role, createdBy } = await req.json(); // Parsing JSON from the request body
 
-  // Check for required fields
+
   if (!email || !role || !createdBy) {
     return NextResponse.json({ message: "Email, role, and createdBy are required" }, { status: 400 });
   }
@@ -19,18 +19,18 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    // Check if the creator exists
+  
     const creator = await prisma.user.findUnique({ where: { email: createdBy } });
     if (!creator) {
       return NextResponse.json({ message: "Creator not found" }, { status: 404 });
     }
 
-    // Super Admin can register Admins
+    // Super Admin can register the Admins
     if (role === "ADMIN" && creator.role !== "SUPER_ADMIN") {
       return NextResponse.json({ message: "Only Super Admin can register Admins" }, { status: 403 });
     }
 
-    // Ensure only Admin and Super Admin can register other roles
+    //  only Admin and Super Admin can register other roles
     if (
       role !== "ADMIN" &&
       role !== "SUPER_ADMIN" &&
@@ -56,10 +56,8 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    // Log the successful user creation
     console.log("User created successfully:", user);
 
-    // Send the registration email with the temporary password
     await sendRegistrationEmail(email, tempPassword);
 
     return NextResponse.json({ message: "User registered successfully", user }, { status: 201 });

@@ -20,17 +20,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             return null;
           }
 
-          // Check if the user exists
+ 
           const user = await prisma.user.findUnique({
             where: { email },
           });
 
-          // If the user exists and password matche, return user data
+          
           if (user && user.password && (await bcrypt.compare(password, user.password))) {
             return { id: user.id, email: user.email, role: user.role };
           }
 
-          // If no match, return null
+       
           return null;
         },
       }),

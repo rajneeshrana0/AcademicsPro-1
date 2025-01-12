@@ -1,11 +1,11 @@
 // app/auth/signin/page.tsx
 "use client"
 import { useState } from "react";
-import { useRouter } from "next/navigation"; // Use next/navigation for navigation in app directory
+import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 
 import { Input } from "../../components/ui/input";
-import  Link  from 'next/link'; // Use next/link for routing in Next.js
+import  Link  from 'next/link'; 
 import { Navbar } from "@/app/components/landing/Navbar/Navbar";
 import { Footer } from "@/app/components/landing/Footer";
 
