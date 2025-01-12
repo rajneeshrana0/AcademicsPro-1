@@ -1,8 +1,14 @@
-
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import prisma from "../../../../lib/prisma";
 import bcrypt from "bcrypt";
+
+// Interface for the user object
+// interface User {
+//   id: string;
+//   email: string;
+//   role: string;
+// }
 
 const handler = NextAuth({
   providers: [
@@ -13,19 +19,30 @@ const handler = NextAuth({
         password: { label: "Password", type: "password", required: true },
       },
       async authorize(credentials) {
-        if (!credentials?.email || !credentials?.password) {
-          return null; 
+        try {
+          if (!credentials?.email || !credentials?.password) {
+            throw new Error("Missing email or password");
+          }
+
+          const user = await prisma.user.findUnique({
+            where: { email: credentials.email },
+          });
+
+          if (!user || !user.password) {
+            throw new Error("Invalid email or password"); 
+          }
+
+          const passwordMatch = await bcrypt.compare(credentials.password, user.password);
+          if (!passwordMatch) {
+            throw new Error("Invalid email or password");
+          }
+
+          return { id: user.id, email: user.email, role: user.role };
+        } catch (error) {
+          console.error("Error in authorization:", error);
+          // Optionally, you can re-throw the error or return a custom error object
+          throw error; 
         }
-
-        const user = await prisma.user.findUnique({
-          where: { email: credentials.email },
-        });
-
-        if (!user || !user.password || !(await bcrypt.compare(credentials.password, user.password))) {
-          return null;
-        }
-
-        return { id: user.id, email: user.email, role: user.role };
       },
     }),
   ],
@@ -42,7 +59,7 @@ const handler = NextAuth({
       if (token) {
         session.user = {
           id: token.id as string,
-          email: token.email ?? '',
+          email: token.email as string, // No need for ?? '' since it's already in the token
           role: token.role as string,
         };
       }
@@ -51,7 +68,8 @@ const handler = NextAuth({
   },
   secret: process.env.NEXTAUTH_SECRET,
   session: {
-    strategy: "jwt", 
+    strategy: "jwt",
+    maxAge: 30 * 24 * 60 * 60, // 30 days
   },
 });
 
