@@ -20,3 +20,10 @@ console.log(school);
 return NextResponse.json({ message: "School registered successfully" }, { status: 200 });
 
 }
+
+// get all schools
+
+export async function GET( ) {
+  const schools = await prisma.school.findMany();
+  return NextResponse.json(schools, { status: 200 });
+}

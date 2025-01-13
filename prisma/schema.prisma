@@ -8,30 +8,31 @@ datasource db {
 }
 
 model School {
-  id        String   @id @default(cuid())
+  id        String    @id @default(cuid())
   name      String
-  phone     String   @unique
+  phone     String    @unique
   address   String
   city      String
   state     String
   country   String
   pincode   String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt 
-  users     User[] @relation()
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @default(now()) @updatedAt
+  users     User[]    @relation()
+  students  Student[]
 }
-
 
 // User Models are defined here
 model User {
   id        String   @id @default(cuid())
   email     String   @unique
-  password  String 
+  password  String
   role      Role     @default(superadmin)
   schoolId  String?
-  school    School?   @relation(fields: [schoolId], references: [id])
+  school    School?  @relation(fields: [schoolId], references: [id])
+  students  Student[]
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt  
+  updatedAt DateTime @default(now()) @updatedAt
 
   PasswordResetToken PasswordResetToken[]
 }
@@ -48,14 +49,36 @@ enum Role {
 }
 
 model PasswordResetToken {
-  id        Int      @id @default(autoincrement())
-  token     String   @unique
-  userId    String   
-  createdAt DateTime @default(now())
+  id        Int       @id @default(autoincrement())
+  token     String    @unique
+  userId    String
+  createdAt DateTime  @default(now())
   expiresAt DateTime
-  usedAt    DateTime? 
+  usedAt    DateTime?
 
-  user      User     @relation(fields: [userId], references: [id])
+  user User @relation(fields: [userId], references: [id])
 
-  @@index([expiresAt]) 
+  @@index([expiresAt])
+}
+
+// School Models are defined here
+
+// Register Student with School
+
+model Student {
+  id       String @id @default(cuid())
+  name     String
+  email    String @unique
+  phone    String
+  address  String
+  city     String
+  state    String
+  country  String
+  pincode  String
+  schoolId String
+userId   String?
+user     User?    @relation(fields: [userId], references: [id])
+  school    School   @relation(fields: [schoolId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
 }

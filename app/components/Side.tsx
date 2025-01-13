@@ -12,7 +12,7 @@ export function SidebarDemo({ children }: { children: React.ReactNode }) {
   const { data: session, status } = useSession();  // Fetch the session data from NextAuth
   const [open, setOpen] = useState(false);
 
-  // Define links for different roles
+  
   const sidebarLinks = {
     superadmin: [
       {
@@ -21,20 +21,16 @@ export function SidebarDemo({ children }: { children: React.ReactNode }) {
         icon: <IconBrandTabler className="text-primary-foreground h-5 w-5 flex-shrink-0" />
       },
       {
-        label: "Settings",
-        href: "/superadmin/",
+        label: "Register School",
+        href: "/superadmin/registerschool",
         icon: <IconSettings className="text-primary-foreground h-5 w-5 flex-shrink-0" />
       },
       {
         label: "Register Admin",
-        href: "/superadmin/register-admin",
+        href: "/superadmin/registeradmin",
         icon: <IconSettings className="text-primary-foreground h-5 w-5 flex-shrink-0" />
       },
-      {
-        label: "Register School",
-        href: "/superadmin/register-school",
-        icon: <IconArrowLeft className="text-primary-foreground h-5 w-5 flex-shrink-0" />
-      },
+     
       {
         label: "Profile",
         href: "/superadmin/profile",
@@ -48,13 +44,13 @@ export function SidebarDemo({ children }: { children: React.ReactNode }) {
         icon: <IconBrandTabler className="text-primary-foreground h-5 w-5 flex-shrink-0" />
       },
       {
-        label: "Settings",
-        href: "#",
+        label: "Register Student",
+        href: "/admin/registerstudent",
         icon: <IconSettings className="text-primary-foreground h-5 w-5 flex-shrink-0" />
       },
       {
-        label: "Logout",
-        href: "#",
+        label: "Profile",
+        href: "/admin/profile",
         icon: <IconArrowLeft className="text-primary-foreground h-5 w-5 flex-shrink-0" />
       },
     ],
