@@ -1,15 +1,21 @@
-"use client"
+"use client";
 import { useState, useEffect } from "react";
-import { useRouter, useSearchParams } from "next/navigation"; // Change here
+import { useRouter } from "next/navigation"; // Keep using `next/navigation` as required
+import dynamic from "next/dynamic";
 
-const ResetPassword = () => {
+// Dynamically import the component and disable SSR
+const ResetPassword = dynamic(() => Promise.resolve(ResetPasswordComponent), {
+  ssr: false,
+});
+
+const ResetPasswordComponent = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const router = useRouter(); // This hook comes from 'next/navigation'
-  const searchParams = useSearchParams();
+  const router = useRouter();
+  const searchParams = new URLSearchParams(window.location.search); // Use window.location.search for client-side search params
   const token = searchParams.get("token");
 
   useEffect(() => {
