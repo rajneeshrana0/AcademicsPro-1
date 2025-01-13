@@ -1,6 +1,7 @@
 "use client";
 import React, { JSX, useState } from "react";
 import { Sidebar, SidebarBody, SidebarLink } from "../components/ui/sidebar";
+import { signOut } from "next-auth/react"; // Import signOut from NextAuth
 import { IconArrowLeft, IconBrandTabler, IconSettings, IconUserBolt } from "@tabler/icons-react";
 import { useSession } from "next-auth/react"; // Import useSession from NextAuth
 import Image from "next/image";
@@ -112,22 +113,28 @@ export function SidebarDemo({ children }: { children: React.ReactNode }) {
               ))}
             </div>
           </div>
-          <div>
-            <SidebarLink
-              link={{
-                label: session?.user?.email || "User",
-                href: "#",
-                icon: (
-                  <Image
-                    src={"https://via.placeholder.com/50"}
-                    className="h-7 w-7 flex-shrink-0 rounded-full"
-                    width={50}
-                    height={50}
-                    alt="User Avatar"
-                  />
-                ),
-              }}
-            />
+          <div className="flex items-center justify-center w-full h-12 text-sm font-semibold text-primary-foreground bg-primary-background hover:bg-primary-foreground hover:text-black rounded-2xl  bg-cyan-900">
+            <button 
+            className="flex items-center justify-center w-full h-12 text-sm font-semibold text-primary-foreground bg-primary-background hover:bg-primary-foreground hover:text-black rounded-2xl  bg-cyan-900 "
+            onClick={() => signOut()}>
+              {/* <SidebarLink
+                link={{
+                  label: session?.user?.email || "User",
+                  href: "#",
+                  icon: (
+                    <Image
+                      src={"https://via.placeholder.com/50"}
+                      className="h-7 w-7 flex-shrink-0 rounded-full"
+                      width={50}
+                      height={50}
+                      alt="User Avatar"
+                    />
+                  ),
+                }}
+
+              /> */}
+              LogOut
+            </button>
           </div>
         </SidebarBody>
       </Sidebar>

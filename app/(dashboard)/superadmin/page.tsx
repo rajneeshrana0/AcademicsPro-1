@@ -16,9 +16,7 @@ const RegisterAdmin = () => {
       <p>Please sign in to register a new admin.</p>
     )}
     
-    <br />
-    <br />
-    <br />
+    
     <hr className="" />
    
     </>
