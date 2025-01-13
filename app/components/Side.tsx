@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { JSX, useState } from "react";
 import { Sidebar, SidebarBody, SidebarLink } from "../components/ui/sidebar";
 import { IconArrowLeft, IconBrandTabler, IconSettings, IconUserBolt } from "@tabler/icons-react";
 import { useSession } from "next-auth/react"; // Import useSession from NextAuth
@@ -100,8 +100,9 @@ export function SidebarDemo({ children }: { children: React.ReactNode }) {
   }
 
   
-  const userRole = session?.user?.role 
-  const links = sidebarLinks[userRole] 
+  const userRole = session?.user?.role || 'student'; // Provide a default role
+  
+  const links = sidebarLinks[userRole as keyof typeof sidebarLinks]; 
 
   return (
     <div className={cn("bg-background text-foreground flex flex-col md:flex-row w-screen h-screen max-w-none mx-0 border border-neutral-200 overflow-hidden")}>
@@ -110,7 +111,7 @@ export function SidebarDemo({ children }: { children: React.ReactNode }) {
           <div className="flex flex-col flex-1 overflow-y-auto overflow-x-hidden bg-background text-foreground">
             {open ? <Logos /> : <Logos />}
             <div className="mt-8 flex flex-col gap-2">
-              {links.map((link, idx: React.Key | null | undefined) => (
+              {links.map((link: { label: string; href: string; icon: JSX.Element }, idx: React.Key | null | undefined) => (
                 <SidebarLink key={idx} link={link} />
               ))}
             </div>
@@ -118,11 +119,11 @@ export function SidebarDemo({ children }: { children: React.ReactNode }) {
           <div>
             <SidebarLink
               link={{
-                label: session?.user?.name || "User",
+                label: session?.user?.email || "User",
                 href: "#",
                 icon: (
                   <Image
-                    src={session?.user?.image || "https://via.placeholder.com/50"}
+                    src={"https://via.placeholder.com/50"}
                     className="h-7 w-7 flex-shrink-0 rounded-full"
                     width={50}
                     height={50}
