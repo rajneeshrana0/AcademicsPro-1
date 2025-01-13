@@ -4,7 +4,8 @@ const nextConfig: NextConfig = {
   /* config options here */
   // transpilePackages: ['framer-motion'],
   images: {
-    domains: ['instagram.fixc5-2.fna.fbcdn.net'],
+    domains: ['instagram.fixc5-2.fna.fbcdn.net','via.placeholder.com'],
+  
   },
 
 };

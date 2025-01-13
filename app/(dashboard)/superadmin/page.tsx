@@ -3,9 +3,8 @@ import { useSession } from "next-auth/react";
 import { useState } from "react";
 
 const RegisterAdmin = () => {
-  const { data: session } = useSession();
+  const { data: session,  } = useSession();
   const [email, setEmail] = useState("");
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -38,8 +37,24 @@ const RegisterAdmin = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+
+    <>
+    {}
+    {session ? (
+      <p className="text-2xl font-bold">Welcome, {session.user?.email}</p>
+    ) : (
+      <p>Please sign in to register a new admin.</p>
+    )}
+    
+    <br />
+    <br />
+    <br />
+    <hr className="" />
+    <form
+    className="flex flex-col items-center gap-y-8"
+    onSubmit={handleSubmit}>
       <input
+      className="mt-12 "
         type="email"
         placeholder="Admin Email"
         value={email}
@@ -48,7 +63,9 @@ const RegisterAdmin = () => {
       />
       <button type="submit">Register Admin</button>
     </form>
+    </>
   );
+ 
 };
 
 export default RegisterAdmin;
