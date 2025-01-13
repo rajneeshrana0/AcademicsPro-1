@@ -1,45 +1,52 @@
 // app/auth/signin/page.tsx
-"use client"
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+"use client";
+
+import { useState, useRef } from "react";
 import { signIn } from "next-auth/react";
+// import Navbar from "@/components/Navbar";
+// import Footer from "@/components/Footer";
+import Link from "next/link";
+// import { Input } from "@/components/ui/input";
 
-import { Input } from "../../components/ui/input";
-import  Link  from 'next/link'; 
-import { Navbar } from "@/app/components/landing/Navbar/Navbar";
-import { Footer } from "@/app/components/landing/Footer";
-
-export default function SignIn() {
+export default function Login() {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const router = useRouter();
+  const passwordRef = useRef<HTMLInputElement>(null);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError("");
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
 
-    const res = await signIn("credentials", {
-      redirect: false,
-      email,
-      password,
-    });
+    try {
+      const password = passwordRef.current?.value;
 
-    if (res?.error) {
-      setError(res.error);
-    } else {
-     
-      router.push("/superadmin"); 
+      if (!password || !email) {
+        console.error("Email and password are required");
+        return;
+      }
+
+      const result = await signIn("credentials", {
+        email,
+        password,
+        redirect: true,
+       
+      });
+
+      if (result?.error) {
+        console.error(result.error);
+      } else {
+        console.log("Sign-in successful!");
+        // You might want to add additional redirection logic here based on the user's role
+      }
+    } catch (error) {
+      console.error(error);
     }
   };
 
   return (
     <>
       <div className="flex justify-center items-center p-36">
-        <Navbar />
-        
+        {/* <Navbar /> */}
         <div className="w-full max-w-md p-8 rounded-lg shadow-lg bg-card">
-          <h2 className="text-2xl font-bold mb-4 text-center">Sign In</h2>
+          <h2 className="text-2xl font-bold mb-4 text-center">Login</h2>
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
               <label className="block mb-2 text-sm font-medium" htmlFor="email">
@@ -49,31 +56,32 @@ export default function SignIn() {
                 type="email"
                 id="email"
                 className="w-full p-2 border border-border rounded-lg bg-input text-foreground"
+                placeholder="Enter your email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="Enter your email"
-                required
               />
             </div>
+
             <div className="mb-6">
-              <label className="block mb-2 text-sm font-medium" htmlFor="password">
+              <label
+                className="block mb-2 text-sm font-medium"
+                htmlFor="password"
+              >
                 Password
               </label>
-              <Input
+              <input
+                ref={passwordRef}
                 type="password"
                 id="password"
                 className="w-full p-2 border border-border rounded-lg bg-input text-foreground"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter your password"
-                required
               />
             </div>
             <button
               type="submit"
               className="w-full py-2 px-4 rounded-lg bg-primary text-primary-foreground hover:bg-primary/80 glow"
             >
-              Sign In
+              Login
             </button>
           </form>
           <div className="mt-4 flex justify-between text-sm">
@@ -83,11 +91,9 @@ export default function SignIn() {
               </button>
             </Link>
           </div>
-          {error && <p style={{ color: "red" }}>{error}</p>}
         </div>
       </div>
-        <Footer />
-      
+      {/* <Footer /> */}
     </>
   );
 }

@@ -6,10 +6,14 @@ import { randomBytes } from "crypto";
 import { NextResponse } from "next/server"; // Import NextResponse
 
 export async function POST(req: NextRequest) {
-  const { email, role, createdBy } = await req.json(); // Parsing JSON from the request body
+
+//   const requestBody = await req.json();
+// console.log(requestBody); 
+  const { email, role, createdBy,schoolId } = await req.json(); // Parsing JSON from the request body
+  console.log(schoolId);
 
 
-  if (!email || !role || !createdBy) {
+  if (!email || !role || !createdBy || !schoolId) {
     return NextResponse.json({ message: "Email, role, and createdBy are required" }, { status: 400 });
   }
 
@@ -26,16 +30,16 @@ export async function POST(req: NextRequest) {
     }
 
     // Super Admin can register the Admins
-    if (role === "ADMIN" && creator.role !== "SUPER_ADMIN") {
+    if (role === "admin" && creator.role !== "superadmin") {
       return NextResponse.json({ message: "Only Super Admin can register Admins" }, { status: 403 });
     }
 
     //  only Admin and Super Admin can register other roles
     if (
-      role !== "ADMIN" &&
-      role !== "SUPER_ADMIN" &&
-      creator.role !== "ADMIN" &&
-      creator.role !== "SUPER_ADMIN"
+      role !== "admin" &&
+      role !== "superadmin" &&
+      creator.role !== "admin" &&
+      creator.role !== "superadmin"
     ) {
       return NextResponse.json({ message: "You are not authorized to register this role" }, { status: 403 });
     }
@@ -47,13 +51,24 @@ export async function POST(req: NextRequest) {
     // Log the user creation attempt
     console.log("Registering user with email:", email, "Role:", role);
 
+     // Check if the provided school exists
+     const school = await prisma.school.findUnique({ where: { id: schoolId } });
+     if (!school) {
+       return NextResponse.json({ message: "School not found" }, { status: 404 });
+     }
+
     // Register the new user in the database
+
     const user = await prisma.user.create({
       data: {
         email,
         password: hashedPassword,
         role,
+        school: {
+          connect: { id: schoolId }, 
+        },
       },
+     
     });
 
     console.log("User created successfully:", user);

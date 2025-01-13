@@ -6,7 +6,8 @@
     "dev": "next dev --turbopack",
     "build": "prisma generate && next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "create-super-admin": "ts-node ./scripts/create-super-admin.ts"
   },
   "dependencies": {
     "@prisma/client": "^6.2.1",

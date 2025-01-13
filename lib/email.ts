@@ -120,3 +120,50 @@ export const sendRegistrationEmail = async (email: string, password: string) => 
     html: emailTemplate,
   });
 };
+
+
+// Function to send password reset email
+export async function sendResetEmail(email: string, resetLink: string) {
+  const transporter = nodemailer.createTransport({
+    service: "gmail", 
+    auth: {
+      user: process.env.EMAIL_SERVER_USER,  
+      pass: process.env.EMAIL_SERVER_PASSWORD,  
+    },
+  });
+
+  const mailOptions = {
+    from: process.env.EMAIL_USER,
+    to: email,
+    subject: "Password Reset Request",
+    html: `
+      <html>
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Password Reset Request</title>
+        </head>
+        <body>
+          <div style="max-width:600px;margin:0 auto;padding:20px;background-color:#fff;border-radius:8px;">
+            <h2>Password Reset Request</h2>
+            <p>Hello,</p>
+            <p>We received a request to reset your password. If you made this request, please click the button below to reset your password:</p>
+            <a href="${resetLink}" style="padding:10px 20px;background-color:#4CAF50;color:white;text-decoration:none;border-radius:5px;">Reset Password</a>
+            <p>If you did not request this, please ignore this email. Your password will not be changed.</p>
+            <p>This link will expire in 1 hour.</p>
+            <div style="font-size:12px;color:#888;text-align:center;">
+              <p>If you have any issues, feel free to contact our support team.</p>
+            </div>
+          </div>
+        </body>
+      </html>
+    `,
+  };
+
+  try {
+    await transporter.sendMail(mailOptions);
+    console.log("Password reset email sent successfully");
+  } catch (error) {
+    console.error("Error sending reset email:", error);
+  }
+}

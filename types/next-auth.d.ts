@@ -5,14 +5,20 @@ declare module "next-auth" {
   interface User {
     id: string;
     email: string;
-    role: string;
+    role: string; // Add the role property
   }
 
   interface Session {
-    user: User;
+    user: {
+      id: string;
+      email: string;
+      role: string;
+    };
   }
 
   interface JWT {
-    user: User;
+    id: string;
+    email: string;
+    role: string;
   }
 }

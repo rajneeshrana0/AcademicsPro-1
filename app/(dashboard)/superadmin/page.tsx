@@ -16,6 +16,7 @@ const RegisterAdmin = () => {
         body: JSON.stringify({
           email,
           role: "ADMIN",
+           schoolId: 'cm5tub2tq00001vxf0mt8xf8f',
           createdBy: session?.user?.email,
         }),
       });
