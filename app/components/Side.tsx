@@ -50,6 +50,47 @@ export function SidebarDemo({ children }: { children: React.ReactNode }) {
         icon: <IconSettings className="text-primary-foreground h-5 w-5 flex-shrink-0" />
       },
       {
+        label: "Register Parent",
+        href: "/admin/registerparent",
+        icon: <IconSettings className="text-primary-foreground h-5 w-5 flex-shrink-0" />
+      },
+      {
+        label: "Register Teacher",
+        href: "/admin/registerteacher",
+        icon: <IconSettings className="text-primary-foreground h-5 w-5 flex-shrink-0" />
+      },
+      {
+        label: "Register Library",
+        href: "/admin/registerlibrary",
+        icon: <IconSettings className="text-primary-foreground h-5 w-5 flex-shrink-0" />
+      },
+      {
+        label: "Register Accountant",
+        href: "/admin/registeraccount",
+        icon: <IconSettings className="text-primary-foreground h-5 w-5 flex-shrink-0" />
+      },
+      {
+        label: "Register Hostel",
+        href: "/admin/registerhostel",
+        icon: <IconSettings className="text-primary-foreground h-5 w-5 flex-shrink-0" />
+      },
+      {
+        label: "Register Transport",
+        href: "/admin/registertransport",
+        icon: <IconSettings className="text-primary-foreground h-5 w-5 flex-shrink-0" />
+      },
+      {
+        label: "Manage Payment",
+        href: "/admin/payment-manage",
+        icon: <IconSettings className="text-primary-foreground h-5 w-5 flex-shrink-0" />
+      },
+      {
+        label: "Event Calender",
+        href: "/admin/schedule-event",
+        icon: <IconSettings className="text-primary-foreground h-5 w-5 flex-shrink-0" />
+      },
+
+      {
         label: "Profile",
         href: "/admin/profile",
         icon: <IconArrowLeft className="text-primary-foreground h-5 w-5 flex-shrink-0" />
