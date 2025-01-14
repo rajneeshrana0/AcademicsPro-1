@@ -1,0 +1,283 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model School {
+  id          String      @id @default(cuid())
+  name        String
+  phone       String      @unique
+  address     String
+  city        String
+  state       String
+  country     String
+  pincode     String
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @default(now()) @updatedAt
+  users       User[]      @relation()
+  students    Student[]
+  holidays    Holiday[]   // Holidays for the school
+  events      Event[]     // School-specific events
+  fees        Fee[]       // Fee structure for the school
+}
+
+model User {
+  id              String               @id @default(cuid())
+  email           String               @unique
+  password        String
+  role            Role                 @default(superadmin)
+  schoolId        String?
+  school          School?              @relation(fields: [schoolId], references: [id])
+  students        Student[]
+  createdAt       DateTime             @default(now())
+  updatedAt       DateTime             @default(now()) @updatedAt
+  passwordResetToken PasswordResetToken[]
+  profile         Profile?             @relation(fields: [id], references: [userId]) // For profile details like name, phone, etc.
+}
+
+model Profile {
+  id        String @id @default(cuid())
+  userId    String @unique
+  firstName String
+  lastName  String
+  phone     String
+  address   String
+  city      String
+  state     String
+  country   String
+  user      User   @relation(fields: [userId], references: [id])
+}
+
+enum Role {
+  superadmin
+  admin
+  student
+  teacher
+  parent
+  account
+  hostel
+  library
+  transport
+}
+
+model PasswordResetToken {
+  id        Int       @id @default(autoincrement())
+  token     String    @unique
+  userId    String
+  createdAt DateTime  @default(now())
+  expiresAt DateTime
+  usedAt    DateTime?
+
+  user      User      @relation(fields: [userId], references: [id])
+  @@index([expiresAt])
+}
+
+model Student {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  phone     String
+  address   String
+  city      String
+  state     String
+  country   String
+  pincode   String
+  schoolId  String
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id])
+  school    School   @relation(fields: [schoolId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  // Additional student features
+  attendance   Attendance[]   // Track student attendance
+  assignments  Assignment[]   // Track student assignments
+  grades       Grade[]        // Track student grades
+  fees         Fee[]          // Track fees for the student
+  events       Event[]        // Track student participation in events
+}
+
+model Attendance {
+  id        String   @id @default(cuid())
+  studentId String
+  date      DateTime @default(now())
+  status    Status   // Present/Absent
+
+  student   Student  @relation(fields: [studentId], references: [id])
+}
+
+enum Status {
+  present
+  absent
+  late
+}
+
+model Assignment {
+  id          String   @id @default(cuid())
+  studentId   String
+  title       String
+  description String
+  dueDate     DateTime
+  submittedAt DateTime?
+  grade       Grade?
+
+  student     Student  @relation(fields: [studentId], references: [id])
+}
+
+model Grade {
+  id          String   @id @default(cuid())
+  studentId   String
+  subject     String
+  score       Float
+  feedback    String?
+
+  student     Student  @relation(fields: [studentId], references: [id])
+}
+
+model Fee {
+  id        String   @id @default(cuid())
+  studentId String
+  amount    Float
+  status    FeeStatus
+  dueDate   DateTime
+  paidDate  DateTime?
+
+  student   Student  @relation(fields: [studentId], references: [id])
+}
+
+enum FeeStatus {
+  paid
+  unpaid
+  pending
+}
+
+model Event {
+  id        String   @id @default(cuid())
+  title     String
+  description String
+  date      DateTime
+  schoolId  String
+  createdAt DateTime @default(now())
+
+  school    School   @relation(fields: [schoolId], references: [id])
+  students  Student[] @relation()
+}
+
+model Holiday {
+  id        String   @id @default(cuid())
+  date      DateTime
+  reason    String
+  schoolId  String
+
+  school    School   @relation(fields: [schoolId], references: [id])
+}
+
+model Transport {
+  id        String   @id @default(cuid())
+  route     String
+  timing    String
+  capacity  Int
+  schoolId  String
+
+  school    School   @relation(fields: [schoolId], references: [id])
+  students  Student[] @relation()
+}
+
+model Hostel {
+  id        String   @id @default(cuid())
+  roomNumber String
+  available Boolean
+  schoolId  String
+
+  school    School   @relation(fields: [schoolId], references: [id])
+}
+
+model Library {
+  id        String   @id @default(cuid())
+  bookTitle String
+  author    String
+  available Boolean
+  schoolId  String
+
+  school    School   @relation(fields: [schoolId], references: [id])
+}
+
+model Payment {
+  id          String   @id @default(cuid())
+  studentId   String
+  amount      Float
+  paymentDate DateTime @default(now())
+  method      PaymentMethod
+
+  student     Student  @relation(fields: [studentId], references: [id])
+}
+
+enum PaymentMethod {
+  cash
+  online
+}
+
+model Message {
+  id        String   @id @default(cuid())
+  content   String
+  senderId  String
+  receiverId String
+  timestamp DateTime @default(now())
+
+  sender    User     @relation(fields: [senderId], references: [id])
+  receiver  User     @relation(fields: [receiverId], references: [id])
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  message   String
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id])
+}
+
+model VideoConference {
+  id          String   @id @default(cuid())
+  title       String
+  startTime   DateTime
+  endTime     DateTime
+  createdBy   String   // User ID of the creator
+  schoolId    String
+  participants User[]  @relation("ConferenceParticipants")
+
+  school      School   @relation(fields: [schoolId], references: [id])
+}
+
+model Feedback {
+  id        String   @id @default(cuid())
+  userId    String
+  content   String
+  rating    Int
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id])
+}
+
+model Report {
+  id        String   @id @default(cuid())
+  schoolId  String
+  type      ReportType
+  data      Json
+  createdAt DateTime @default(now())
+
+  school    School   @relation(fields: [schoolId], references: [id])
+}
+
+enum ReportType {
+  attendance
+  fee
+  grades
+  user_activity
+}
+

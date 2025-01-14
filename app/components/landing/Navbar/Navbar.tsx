@@ -24,7 +24,8 @@ export function Navbar() {
     { label: "Features", href: "#features" },
     { label: "About", href: "#about" },
     { label: "Modules", href: "#modules" },
-    { label: "Pricing", href: "#pricing" },
+    { label: "Pricing", href: "#pricing" },  
+          
   ];
 
   if (status === "loading") {

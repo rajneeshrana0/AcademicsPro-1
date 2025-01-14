@@ -1,9 +1,132 @@
-```markdown
-
-##Overview
+# Getting Started
 
 
----asdfffffffffffffffffff
+
+---
+
+## Prerequisites
+
+1. **Docker**: Install Docker from [Docker's official website](https://docs.docker.com/get-docker/).
+2. **Docker Compose Plugin**: Ensure the Docker Compose plugin is installed. Verify with:
+   ```bash
+   docker compose version
+   ```
+3. **Node.js**: Install Node.js (v18 or later).
+
+---
+
+## Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/rajneeshrana0/AcademicsPro.git
+   cd AcademicsPro
+   ```
+
+2. Create a `.env` file in the project root:
+   ```env
+   DATABASE_URL=postgres://admin:admin@postgres:5432/app_db
+   NEXTAUTH_SECRET=your-secret
+   ```
+
+3. Install dependencies (optional for local setup without Docker):
+   ```bash
+   npm install
+   ```
+
+---
+
+## Running the Application
+
+### 1. **Development Mode**
+Run the following command for hot-reloading:
+```bash
+docker compose up --build
+```
+- App will be available at `http://localhost:3000`.
+- PostgreSQL will be available at `localhost:5432`.
+
+### 2. **Production Mode**
+For a production-ready setup, update the `docker-compose.yml` file to use the production stage and run:
+```bash
+docker compose -f docker-compose.yml up --build
+```
+- App will run optimized for production.
+
+---
+
+## Prisma Setup
+
+### Generate Prisma Client
+Run the following command to generate Prisma client:
+```bash
+docker exec -it <container_name> npx prisma generate
+```
+
+### Migrations
+Run Prisma migrations:
+```bash
+docker exec -it <container_name> npx prisma migrate dev
+```
+
+---
+
+
+
+## Docker Commands
+
+### Build and Start Containers
+```bash
+docker compose up --build
+```
+
+### Stop Containers
+```bash
+docker compose down
+```
+
+### Remove Containers, Networks, and Volumes
+```bash
+docker compose down --volumes
+```
+
+### Access the App Container
+```bash
+docker exec -it nextjs_app sh
+```
+
+---
+
+## Troubleshooting
+
+### Common Issues
+1. **Docker Compose Command Not Found**:
+   Use `docker compose` instead of `docker-compose`.
+
+2. **Hot Reload Not Working**:
+   Ensure volumes are correctly mapped in `docker-compose.yml`:
+   ```yaml
+   volumes:
+     - .:/app
+     - /app/node_modules
+   ```
+
+3. **Database Connection Issues**:
+   Verify the `DATABASE_URL` in `.env`.
+
+---
+
+## Contributing
+Feel free to fork the repository and create pull requests.
+
+---
+
+## License
+This project is licensed under the MIT License.
+
+
+
+
 
    Technology Stack
 asdfasdfnasdfnmsdfa

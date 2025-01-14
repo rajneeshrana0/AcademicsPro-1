@@ -19,7 +19,7 @@
 
 # production
 /build
-
+.db.example
 # misc
 .DS_Store
 *.pem
