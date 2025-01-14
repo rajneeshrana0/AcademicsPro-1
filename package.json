@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "create-super-admin": "ts-node ./scripts/create-super-admin.ts",
-    "prisma:migrate": "prisma migrate dev",
+     "prisma:migrate": "prisma migrate dev",
     "prisma:generate": "prisma generate"
   },
   "dependencies": {

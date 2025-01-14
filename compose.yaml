@@ -18,7 +18,7 @@ services:
       target: development
     container_name: academics-pro
     environment:
-      DATABASE_URL: postgresql://postgres:newpassword@localhost:5432/postgres
+      DATABASE_URL: postgresql://myuser:mypassword@localhost:5432/mydatabase
       PORT: 3000
     ports:
       - "3000:3000"

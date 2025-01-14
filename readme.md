@@ -287,7 +287,8 @@ asdfasdfnasdfnmsdfa
 15. Accessibility Features: Screen reader support and offline assignments for students with limited internet access.
 16. Data Backup & Restore: Automated system backups for critical records.
 17. Alumni Portal: A dedicated space for alumni to connect, network, and share experiences.
-18. Mindfulness Activities: Include guided meditation and exercises for mental well-being.
+18. Mindfulness Activities: Include guided meditation anpm install ts-node --save-dev
+nd exercises for mental well-being.
 19. Integration with Wearables: Use smartwatches for notifications and attendance tracking.
 20. Voice Assistance: Add voice commands for navigation and updates.
 
