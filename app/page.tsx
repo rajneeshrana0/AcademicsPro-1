@@ -6,12 +6,12 @@ import { Analytics } from "@vercel/analytics/react";
 export default function Home() {
 
   return (
-      <SessionProvider>
-    <main className='overflow-x-hidden'>
+    <SessionProvider>
+      <main className='overflow-x-hidden'>
 
-    <Analytics />
-    <LandingPage />
-  </main>
-      </SessionProvider>
+        <Analytics />
+        <LandingPage />
+      </main>
+    </SessionProvider>
   );
 }

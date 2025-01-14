@@ -8,7 +8,20 @@ import { MobileMenu } from "./MobileMenu";
 import Logo from "@/./public/logo.png";
 import Link from "next/link";
 import Image from "next/image";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { SessionProvider, signIn, signOut, useSession } from "next-auth/react";
+
+
+
+
+export default function Realnavbar(){
+  return (
+    <>
+    <SessionProvider >
+    <Navbar />
+    </SessionProvider>
+    </>
+  )
+}
 
 export function Navbar() {
   const { data: session, status } = useSession();
@@ -33,7 +46,9 @@ export function Navbar() {
   }
 
   return (
+
     <>
+    
       <motion.header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled

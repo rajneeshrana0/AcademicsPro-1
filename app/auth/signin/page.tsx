@@ -4,7 +4,8 @@ import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { Footer } from "@/app/components/landing/Footer";
-import { Navbar } from "@/app/components/landing/Navbar/Navbar";
+import Realnavbar from "@/app/components/landing/Navbar/Navbar";
+
 
 export default function SignIn() {
   const [email, setEmail] = useState("");
@@ -51,7 +52,8 @@ export default function SignIn() {
 
   return (
     <>
-    <Navbar />
+    
+    <Realnavbar />
     <div className="flex items-center justify-center min-h-screen bg-background text-foreground">
       <form
         onSubmit={handleSubmit}
