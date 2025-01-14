@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "create-super-admin": "ts-node ./scripts/create-super-admin.ts",
-     "prisma:migrate": "prisma migrate dev",
+    "prisma:migrate": "prisma migrate dev",
     "prisma:generate": "prisma generate"
   },
   "dependencies": {
@@ -43,6 +43,7 @@
     "@radix-ui/react-tooltip": "^1.1.2",
     "@tabler/icons-react": "^3.28.1",
     "@types/bcrypt": "^5.0.2",
+    "@vercel/analytics": "^1.4.1",
     "axios": "^1.7.9",
     "bcrypt": "^5.1.1",
     "class-variance-authority": "^0.7.0",
