@@ -20,6 +20,13 @@ model School {
   updatedAt DateTime  @default(now()) @updatedAt
   users     User[]    @relation()
   students  Student[]
+  teachers  Teacher[]
+  parents   Parent[]
+  libraries Library[]
+  hostels   Hostel[]
+  transports Transport[]
+  accounts  Account[]
+
 }
 
 // User Models are defined here
@@ -34,6 +41,14 @@ model User {
   PasswordResetToken PasswordResetToken[]
   createdAt          DateTime             @default(now())
   updatedAt          DateTime             @default(now()) @updatedAt
+  teachers           Teacher[]
+  parents            Parent[]
+  libraries          Library[]
+  hostels            Hostel[]
+  transports         Transport[]
+  accounts           Account[]
+
+ 
 }
 
 enum Role {
@@ -45,7 +60,11 @@ enum Role {
   account
   hostel
   library
+  transport
 }
+
+
+
 
 model PasswordResetToken {
   id        Int       @id @default(autoincrement())
@@ -60,11 +79,117 @@ model PasswordResetToken {
   @@index([expiresAt])
 }
 
-// School Models are defined here
-
-// Register Student with School
+// School Addmin user models
 
 model Student {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  phone     String
+  address   String
+  city      String
+  state     String
+  country   String
+  pincode   String
+  schoolId  String
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id])
+  school    School   @relation(fields: [schoolId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+}
+
+model Teacher {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  phone     String
+  address   String
+  city      String
+  state     String
+  country   String
+  pincode   String
+  schoolId  String
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id])
+  school    School   @relation(fields: [schoolId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+}
+
+model Parent {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  phone     String
+  address   String
+  city      String
+  state     String
+  country   String
+  pincode   String
+  schoolId  String
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id])
+  school    School   @relation(fields: [schoolId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+}
+
+model Library {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  phone     String
+  address   String
+  city      String
+  state     String
+  country   String
+  pincode   String
+  schoolId  String
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id])
+  school    School   @relation(fields: [schoolId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+}
+
+model Hostel {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  phone     String
+  address   String
+  city      String
+  state     String
+  country   String
+  pincode   String
+  schoolId  String
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id])
+  school    School   @relation(fields: [schoolId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+}
+
+model Transport {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  phone     String
+  address   String
+  city      String
+  state     String
+  country   String
+  pincode   String
+  schoolId  String
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id])
+  school    School   @relation(fields: [schoolId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+}
+
+model Account {
   id        String   @id @default(cuid())
   name      String
   email     String   @unique
