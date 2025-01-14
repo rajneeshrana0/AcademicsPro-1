@@ -19,13 +19,13 @@ export default function SignIn() {
     const result = await signIn("credentials", {
       email,
       password,
-      redirect: false, // Handle redirection manually
+      redirect: false, 
     });
 
     if (result?.error) {
       setError("Invalid email or password.");
     } else {
-      // Fetch session to get user role
+      
       const response = await fetch("/api/auth/session");
       const session = await response.json();
       const role = session?.user?.role;
