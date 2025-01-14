@@ -130,6 +130,91 @@ export function SidebarDemo({ children }: { children: React.ReactNode }) {
         icon: <IconArrowLeft className="text-primary-foreground h-5 w-5 flex-shrink-0" />
       },
     ],
+    parents: [
+      {
+        label: "Dashboard",
+        href: "/parents",
+        icon: <IconBrandTabler className="text-primary-foreground h-5 w-5 flex-shrink-0" />
+      },
+      {
+        label: "Profile",
+        href: "/student/profile",
+        icon: <IconUserBolt className="text-primary-foreground h-5 w-5 flex-shrink-0" />
+      },
+      {
+        label: "Logout",
+        href: "#",
+        icon: <IconArrowLeft className="text-primary-foreground h-5 w-5 flex-shrink-0" />
+      },
+    ],
+    library: [
+      {
+        label: "Dashboard",
+        href: "/library",
+        icon: <IconBrandTabler className="text-primary-foreground h-5 w-5 flex-shrink-0" />
+      },
+      {
+        label: "Profile",
+        href: "/student/profile",
+        icon: <IconUserBolt className="text-primary-foreground h-5 w-5 flex-shrink-0" />
+      },
+      {
+        label: "Logout",
+        href: "#",
+        icon: <IconArrowLeft className="text-primary-foreground h-5 w-5 flex-shrink-0" />
+      },
+    ],
+    transport: [
+      {
+        label: "Dashboard",
+        href: "/transport",
+        icon: <IconBrandTabler className="text-primary-foreground h-5 w-5 flex-shrink-0" />
+      },
+      {
+        label: "Profile",
+        href: "/student/profile",
+        icon: <IconUserBolt className="text-primary-foreground h-5 w-5 flex-shrink-0" />
+      },
+      {
+        label: "Logout",
+        href: "#",
+        icon: <IconArrowLeft className="text-primary-foreground h-5 w-5 flex-shrink-0" />
+      },
+    ],
+    account: [
+      {
+        label: "Dashboard",
+        href: "/account",
+        icon: <IconBrandTabler className="text-primary-foreground h-5 w-5 flex-shrink-0" />
+      },
+      {
+        label: "Profile",
+        href: "/student/profile",
+        icon: <IconUserBolt className="text-primary-foreground h-5 w-5 flex-shrink-0" />
+      },
+      {
+        label: "Logout",
+        href: "#",
+        icon: <IconArrowLeft className="text-primary-foreground h-5 w-5 flex-shrink-0" />
+      },
+    ],
+    hostel: [
+      {
+        label: "Dashboard",
+        href: "/hostel",
+        icon: <IconBrandTabler className="text-primary-foreground h-5 w-5 flex-shrink-0" />
+      },
+      {
+        label: "Profile",
+        href: "/student/profile",
+        icon: <IconUserBolt className="text-primary-foreground h-5 w-5 flex-shrink-0" />
+      },
+      {
+        label: "Logout",
+        href: "#",
+        icon: <IconArrowLeft className="text-primary-foreground h-5 w-5 flex-shrink-0" />
+      },
+    ],
   };
 
   // Handle session loading state

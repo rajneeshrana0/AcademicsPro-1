@@ -14,10 +14,15 @@ export async function middleware(req: NextRequest) {
   const path = req.nextUrl.pathname;
 
   const roleAccessMap: { [key: string]: string[] } = {
-    superadmin: ["/superadmin", "/admin", "/teacher", "/student"],
-    admin: ["/admin", "/teacher", "/student"],
-    teacher: ["/teacher", "/student"],
+    superadmin: ["/superadmin"],
+    admin: ["/admin"],
+    teacher: ["/teacher"],
     student: ["/student"],
+    parent: ["/parents"],
+    library: ["/library"],
+    hostel: ["/hostel"],
+    transport: ["/transport"],
+    account: ["/account"],
   };
 
 
