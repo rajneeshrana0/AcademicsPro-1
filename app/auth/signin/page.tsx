@@ -44,6 +44,21 @@ export default function SignIn() {
         case "student":
           router.push("/student");
           break;
+          case "parent":
+          router.push("/parents");
+          break;
+          case "hostel":
+          router.push("/hostel");
+          break;
+          case "library":
+          router.push("/library");
+          break;
+          case "account":
+          router.push("/account");
+          break;
+          case "transport":
+          router.push("/transport");
+          break;
         default:
           router.push("/");
       }
