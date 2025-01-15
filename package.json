@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "create-super-admin": "ts-node ./scripts/create-super-admin.ts",
-     "prisma:migrate": "prisma migrate dev",
+    "prisma:migrate": "prisma migrate dev",
     "prisma:generate": "prisma generate"
   },
   "dependencies": {
@@ -69,6 +69,7 @@
     "react-hook-form": "^7.54.2",
     "react-resizable-panels": "^2.1.7",
     "recharts": "^2.12.7",
+    "sharp": "^0.33.5",
     "sonner": "^1.5.0",
     "tailwind-merge": "^2.6.0",
     "tailwindcss-animate": "^1.0.7",
