@@ -27,6 +27,8 @@ model School {
   transports Transport[]
   accounts  Account[]
 
+
+  SchoolPaymentGateway SchoolPaymentGateway[]
 }
 
 // User Models are defined here
@@ -97,6 +99,8 @@ model Student {
   school    School   @relation(fields: [schoolId], references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
+
+  Fee Fee[]
 }
 
 model Teacher {
@@ -217,4 +221,26 @@ model Event {
   endDate     DateTime
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+}
+
+model SchoolPaymentGateway {
+  id           String   @id @default(cuid())
+  schoolId     String   @unique
+  stripeApiKey String?
+  razorpayKey  String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @default(now()) @updatedAt
+
+  school       School   @relation(fields: [schoolId], references: [id])
+}
+
+model Fee {
+  id        String   @id @default(cuid())
+  studentId String
+  amount    Float
+  status    String   @default("pending") // "paid", "partial", or "pending"
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  student   Student  @relation(fields: [studentId], references: [id])
 }

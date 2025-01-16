@@ -1,16 +1,16 @@
 "use client";
 import React, { JSX, useState } from "react";
 import { Sidebar, SidebarBody, SidebarLink } from "./ui/sidebar";
-import { signOut } from "next-auth/react"; // Import signOut from NextAuth
+import { signOut } from "next-auth/react"; 
 import { IconArrowLeft, IconBrandTabler, IconSettings, IconUserBolt } from "@tabler/icons-react";
-import { useSession } from "next-auth/react"; // Import useSession from NextAuth
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { cn } from "../lib/utils";
 import Logo from "@/public/logo.png";
 import Dashboard from "./Dashboard";
 
 export function SidebarDemo({ children }: { children: React.ReactNode }) {
-  const { data: session, status } = useSession();  // Fetch the session data from NextAuth
+  const { data: session, status } = useSession();  
   const [open, setOpen] = useState(false);
 
 
@@ -31,7 +31,11 @@ export function SidebarDemo({ children }: { children: React.ReactNode }) {
         href: "/superadmin/registeradmin",
         icon: <IconSettings className="text-primary-foreground h-5 w-5 flex-shrink-0" />
       },
-
+      {
+        label: "User Management",
+        href: "/superadmin/users",
+        icon: <IconSettings className="text-primary-foreground h-5 w-5 flex-shrink-0" />
+      },
       {
         label: "Profile",
         href: "/superadmin/profile",
@@ -89,6 +93,7 @@ export function SidebarDemo({ children }: { children: React.ReactNode }) {
         href: "/admin/event",
         icon: <IconSettings className="text-primary-foreground h-5 w-5 flex-shrink-0" />
       },
+      
 
 
       {
