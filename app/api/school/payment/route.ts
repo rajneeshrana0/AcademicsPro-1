@@ -1,23 +1,25 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextResponse } from 'next/server';
 import prisma from '@/db';
 
-export const POST = async (req: NextApiRequest, res: NextApiResponse) => {
+export const POST = async (req: Request) => {
   try {
-    const { schoolId, stripeApiKey, razorpayKey } = req.body;
+    // Parse the incoming request body as JSON
+    const { schoolId, stripeApiKey, razorpayKey } = await req.json();
 
     if (!schoolId) {
-      return res.status(400).json({ error: 'School ID is required' });
+      return NextResponse.json({ error: 'School ID is required' }, { status: 400 });
     }
 
+    // Upsert the payment gateway configuration for the given school
     const updatedGateway = await prisma.schoolPaymentGateway.upsert({
       where: { schoolId },
       update: { stripeApiKey, razorpayKey },
       create: { schoolId, stripeApiKey, razorpayKey },
     });
 
-    return res.status(200).json(updatedGateway);
+    return NextResponse.json(updatedGateway, { status: 200 });
   } catch (error) {
-    console.error(error);
-    return res.status(500).json({ error: 'Internal server error' });
+    console.error('Error updating payment gateway:', error);
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 };
