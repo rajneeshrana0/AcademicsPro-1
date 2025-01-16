@@ -10,7 +10,7 @@ export const POST = async (req: Request) => {
       return NextResponse.json({ error: 'School ID is required' }, { status: 400 });
     }
 
-    // Upsert the payment gateway configuration for the given school
+    // admin can be  the payment gateway configuration for the given school
     const updatedGateway = await prisma.schoolPaymentGateway.upsert({
       where: { schoolId },
       update: { stripeApiKey, razorpayKey },
