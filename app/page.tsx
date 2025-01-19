@@ -1,5 +1,5 @@
 "use client"
-import LandingPage from '@/components/landing/landingpage'
+// import LandingPage from '@/components/landing/landingpage'
 import { SessionProvider } from 'next-auth/react';
 import { Analytics } from "@vercel/analytics/react";
 
