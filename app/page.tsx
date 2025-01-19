@@ -11,7 +11,7 @@ export default function Home() {
 
         <Analytics />
 {/*         <LandingPage /> */}
-        <h1 className="text-4xl bg-background text-foreground font-bold text-center flex justify-center items-center" > We are Facing Down Time Sorry 🙏 For inconvenience We are back 🔜 :) </h1>
+        <h1 className="text-4xl text-foreground font-bold text-center flex justify-center items-center" > We are Facing Down Time Sorry 🙏 For inconvenience We are back 🔜 :) </h1>
       </main>
     </SessionProvider>
   );
