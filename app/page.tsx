@@ -7,7 +7,7 @@ export default function Home() {
 
   return (
     <SessionProvider>
-      <main className='overflow-x-hidden'>
+      <main className='overflow-x-hidden h-full '>
 
         <Analytics />
 {/*         <LandingPage /> */}
