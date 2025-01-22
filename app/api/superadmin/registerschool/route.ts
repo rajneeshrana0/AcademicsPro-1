@@ -27,3 +27,26 @@ export async function GET( ) {
   const schools = await prisma.school.findMany();
   return NextResponse.json(schools, { status: 200 });
 }
+
+
+// Get school by ID (GET route with schoolId)
+export async function GET_BY_ID(req: NextRequest) {
+  const { searchParams } = new URL(req.url);
+  const schoolId = searchParams.get("id");
+
+  if (!schoolId) {
+    return NextResponse.json({ message: "School ID is required" }, { status: 400 });
+  }
+
+  const school = await prisma.school.findUnique({
+    where: {
+      id: schoolId,
+    },
+  });
+
+  if (!school) {
+    return NextResponse.json({ message: "School not found" }, { status: 404 });
+  }
+
+  return NextResponse.json(school, { status: 200 });
+}
