@@ -5,7 +5,7 @@ declare module "next-auth" {
   interface User {
     id: string;
     email: string;
-    role: string; // Add the role property
+    role: string; 
     name: string;
     // password: string;
   }

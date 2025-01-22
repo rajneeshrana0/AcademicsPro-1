@@ -3,70 +3,14 @@ import prisma from "@/db";
 import bcrypt from "bcrypt";
 import { randomBytes } from "crypto";
 import { sendRegistrationEmail } from "@/lib/email";
-import { uploadImageToCloudinary } from "@/lib/cloudinary"; 
-import { Readable } from "stream";
+
 
 export async function POST(req: NextRequest) {
   try {
     console.log("Starting request...");
 
-   
-    const formData = await req.formData();
-    console.log("Form data received:", formData);
 
-    const profilePic = formData.get("profilePic");
-    console.log("Profile picture received:", profilePic);
-
-    if (profilePic && profilePic instanceof Blob) {
-      console.log("Profile picture is valid");
-
-     
-      const validImageTypes = ["image/jpeg", "image/jpg", "image/png"];
-      if (!validImageTypes.includes(profilePic.type)) {
-        console.error("Invalid image format:", profilePic.type);
-        return NextResponse.json(
-          { error: "Invalid image format. Only JPEG, JPG, or PNG are allowed." },
-          { status: 400 }
-        );
-      }
-      console.log("Valid image format");
-
-     
-      const fileBuffer = await profilePic.arrayBuffer(); 
-      console.log("Profile picture buffer created. Size:", fileBuffer.byteLength);
-
-  
-      const file: Express.Multer.File = {
-        fieldname: "profilePic",
-        originalname: profilePic.name,
-        encoding: "7bit",
-        mimetype: profilePic.type,
-        buffer: Buffer.from(fileBuffer),
-        size: fileBuffer.byteLength,
-        stream: new Readable(),
-        destination: "",
-        filename: "",
-        path: "",
-      };
-
-      console.log("File prepared for Cloudinary:", file);
-
-      // Upload image to Cloudinary
-      const folderName = "profile_pics"; // Specify the folder name
-      const imageUrl = await uploadImageToCloudinary(file, folderName).catch((error) => {
-        console.error("Cloudinary upload error:", error);
-        throw new Error("Cloudinary upload failed");
-      });
-      console.log("Image uploaded to Cloudinary. URL:", imageUrl);
-
-      // Extract other form data (assuming JSON string)
-      const data = formData.get("data");
-      if (!data) {
-        console.error("Missing form data.");
-        return NextResponse.json({ error: "Form data is missing." }, { status: 400 });
-      }
-
-      const { name, email, phone, address, city, state, country, pincode, schoolId } = JSON.parse(data as string);
+      const { name, email, phone, address, city, state, country, pincode, schoolId } = await req.json();
       console.log("Parsed form data:", { name, email, phone, address, city, state, country, pincode, schoolId });
 
       // Field validation
@@ -89,7 +33,7 @@ export async function POST(req: NextRequest) {
       // Check for existing user
       const existingStudent = await prisma.user.findFirst({
         where: {
-          OR: [{ email }, { phone }],
+          OR: [{ email }],
         },
       });
       console.log("Existing student found:", existingStudent);
@@ -121,7 +65,7 @@ export async function POST(req: NextRequest) {
           country,
           pincode,
           
-          profilePic: imageUrl, // Save the Cloudinary URL
+      
           password: hashedPassword,
           role: "student",
           school: {
@@ -151,10 +95,7 @@ export async function POST(req: NextRequest) {
       // Return success response
       return NextResponse.json({ message: "Student registered successfully", student }, { status: 200 });
 
-    } else {
-      console.error("No profile picture received.");
-      return NextResponse.json({ error: "Profile picture is required." }, { status: 400 });
-    }
+   
 
   } catch (error) {
     console.error("Error registering student:", error);

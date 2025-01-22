@@ -4,7 +4,7 @@ const prisma = new PrismaClient();
 import bcrypt from "bcrypt";
 
 async function main() {
-  const email = "admin@gmail.com";
+  const email = "admin1@gmail.com";
   const password = "12345";
   const name = "Rajneesh Rana";
   const phone = "1234567890";
@@ -31,7 +31,7 @@ async function main() {
       profilePic,
       email,
       password: hashedPassword,
-      role: "superadmin",
+      role: "admin",
     },
   });
 

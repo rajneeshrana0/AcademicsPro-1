@@ -6,9 +6,13 @@ import { useState, useEffect } from "react";
 export default function RegisterAdminPage() {
   const { data: session } = useSession();
   const [school, setSchool] = useState([]);
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [selectedSchoolId, setSelectedSchoolId] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const [isSubmitting, setIsSubmitting] = useState(false); // Track submission state
+  const [error, setError] = useState("");
 
   useEffect(() => {
     fetch("/api/superadmin/registerschool")
@@ -27,20 +31,38 @@ export default function RegisterAdminPage() {
     setSelectedSchoolId(event.target.value);
   };
 
+  const validateForm = () => {
+    // Simple validation checks for empty fields
+    return name && phone && email && selectedSchoolId && session?.user?.email;
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!validateForm()) {
+      setError("All fields are required.");
+      return;
+    }
+
+    console.log("Submitting data:", { name, phone, email, role: "admin", schoolId: selectedSchoolId, createdBy: session?.user?.email }); // Log the payload
+    setIsSubmitting(true);
+    setError(""); // Reset error
 
     try {
       const res = await fetch("/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          name,
+          phone,
           email,
           role: "admin",
           schoolId: selectedSchoolId,
           createdBy: session?.user?.email,
         }),
       });
+
+      console.log(res);
 
       const text = await res.text();
       if (res.ok) {
@@ -49,6 +71,8 @@ export default function RegisterAdminPage() {
         alert("Admin registered successfully!");
         setEmail("");
         setSelectedSchoolId("");
+        setName("");
+        setPhone("");
       } else {
         const errorData = text ? JSON.parse(text) : { message: "Unknown error occurred" };
         alert(errorData.message || "Something went wrong!");
@@ -56,6 +80,8 @@ export default function RegisterAdminPage() {
     } catch (error) {
       console.error("An error occurred:", error);
       alert("Failed to register admin, please try again later.");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -66,6 +92,8 @@ export default function RegisterAdminPage() {
   return (
     <>
       <h1 className="text-2xl font-bold mb-12">Admin Register</h1>
+      {error && <div className="text-red-500">{error}</div>} {/* Display error message */}
+
       <div>
         <label htmlFor="schoolSelect" className="block mb-2">
           Select a School:
@@ -85,6 +113,7 @@ export default function RegisterAdminPage() {
           ))}
         </select>
       </div>
+      
       <form className="flex flex-col items-center gap-y-8" onSubmit={handleSubmit}>
         <input
           className="mt-12 text-black"
@@ -94,7 +123,25 @@ export default function RegisterAdminPage() {
           onChange={(e) => setEmail(e.target.value)}
           required
         />
-        <button type="submit">Register Admin</button>
+        <input 
+          className="mt-12 text-black"
+          type="text"
+          placeholder="Admin Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+        />
+        <input 
+          className="mt-12 text-black"
+          type="text"
+          placeholder="Admin Phone"
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+          required
+        />
+        <button type="submit" disabled={isSubmitting || !validateForm()}>
+          {isSubmitting ? "Registering..." : "Register Admin"}
+        </button>
       </form>
     </>
   );
