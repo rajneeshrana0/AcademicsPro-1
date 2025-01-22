@@ -20,7 +20,13 @@ const CreateStudent = () => {
   const [error, setError] = useState<string | null>(null); // Error state for API request
 
   // Fetch school ID from the session
-  const { data: sessionData, error: sessionError } = useFetch('/api/auth/session');
+  interface SessionData {
+    user: {
+      schoolId: string;
+    };
+  }
+
+  const { data: sessionData, error: sessionError } = useFetch<SessionData>('/api/auth/session');
 
   useEffect(() => {
     if (sessionData) {
