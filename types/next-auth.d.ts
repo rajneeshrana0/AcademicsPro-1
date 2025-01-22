@@ -12,6 +12,7 @@ declare module "next-auth" {
 
   interface Session {
     user: {
+      name: ReactNode;
       id: string;
       email: string;
       role: string;

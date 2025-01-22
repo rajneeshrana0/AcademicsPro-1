@@ -7,7 +7,7 @@ export default function Page() {
     <div>
       <h1> Admin Page</h1>
       {session ? (
-      <p className="text-2xl font-bold">Welcome, {session.user?.email}</p>
+      <p className="text-2xl font-bold">Welcome, {session.user?.name}</p>
     ) : (
       <p>Please sign in to register a new admin.</p>
     )}

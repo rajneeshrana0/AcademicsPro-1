@@ -11,7 +11,7 @@ const RegisterAdmin = () => {
     <>
     {}
     {session ? (
-      <p className="text-2xl font-bold">Welcome, {session.user?.email}</p>
+      <p className="text-2xl font-bold">Welcome Back  {session.user?.name} 😊</p>
     ) : (
       <p>Please sign in to register a new admin.</p>
     )}
