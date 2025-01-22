@@ -1,40 +1,56 @@
-// app/api/upload/route.ts
-
 import { NextRequest, NextResponse } from "next/server";
 import cloudinary from "@/lib/cloudinary"; // Import Cloudinary config
 
-export async function POST(req: NextRequest) {
-  try {
-    const formData = await req.formData();
-    const imageFile = formData.get("image") as File;
+interface CloudinaryUploadResult {
+  public_id: string;
+  bytes: number;
+  // duration: number;
+  [key: string]: unknown;
+}
 
-    if (!imageFile) {
-      return NextResponse.json({ error: "No image uploaded." }, { status: 400 });
+export async function post(request: NextRequest) {
+  try {
+    const formData = await request.formData();
+    const file = (formData.get("file") as File) || null;
+
+    if (!file) {
+      return NextResponse.json({
+        error: "No file uploaded",
+        status: 400,
+      });
     }
 
-    const arrayBuffer = await imageFile.arrayBuffer();
-    const buffer = Buffer.from(arrayBuffer);
-    const uploadResult: { secure_url: string } = await new Promise((resolve, reject) => {
-      const uploadStream = cloudinary.uploader.upload_stream(
-        { public_id: `profile_${Date.now()}` }, // Unique public ID for the uploaded image
-        (error, result) => {
-          if (error) {
-            reject(error);
-          } else {
-            if (result) {
-              resolve(result);
+    const byte = await file.arrayBuffer();
+
+    const buffer = Buffer.from(byte);
+
+    const result = await new Promise<CloudinaryUploadResult>(
+      (resolve, reject) => {
+        const uploadStream = cloudinary.uploader.upload_stream(
+          { folder: "images" },
+          (error, result) => {
+            if (error) {
+              reject(error);
             } else {
-              reject(new Error("Upload result is undefined"));
+              resolve(result as CloudinaryUploadResult);
             }
           }
-        }
-      );
-      uploadStream.end(buffer);
-    });
+        );
+        uploadStream.end(buffer);
+      }
+    );
 
-    return NextResponse.json({ message: "Image uploaded successfully", url: uploadResult.secure_url }, { status: 200 });
+    return NextResponse.json({
+      publicId: result.public_id,
+      status: 200,
+      message: "File uploaded successfully",
+    });
   } catch (error) {
-    console.error("Error uploading image:", error);
-    return NextResponse.json({ error: "Failed to upload image." }, { status: 500 });
+    console.log("image upload failed", error);
+
+    return NextResponse.json({
+      error: "Failed to upload image",
+      status: 500,
+    });
   }
 }
