@@ -30,23 +30,23 @@ export async function GET( ) {
 
 
 // Get school by ID (GET route with schoolId)
-export async function GET_BY_ID(req: NextRequest) {
-  const { searchParams } = new URL(req.url);
-  const schoolId = searchParams.get("id");
+// export async function GET_BY_ID(req: NextRequest) {
+//   const { searchParams } = new URL(req.url);
+//   const schoolId = searchParams.get("id");
 
-  if (!schoolId) {
-    return NextResponse.json({ message: "School ID is required" }, { status: 400 });
-  }
+//   if (!schoolId) {
+//     return NextResponse.json({ message: "School ID is required" }, { status: 400 });
+//   }
 
-  const school = await prisma.school.findUnique({
-    where: {
-      id: schoolId,
-    },
-  });
+//   const school = await prisma.school.findUnique({
+//     where: {
+//       id: schoolId,
+//     },
+//   });
 
-  if (!school) {
-    return NextResponse.json({ message: "School not found" }, { status: 404 });
-  }
+//   if (!school) {
+//     return NextResponse.json({ message: "School not found" }, { status: 404 });
+//   }
 
-  return NextResponse.json(school, { status: 200 });
-}
+//   return NextResponse.json(school, { status: 200 });
+// }
