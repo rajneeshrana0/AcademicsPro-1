@@ -1,23 +1,25 @@
 import prisma from "@/db";
-import { sendRegistrationEmail } from "@/lib/email";
 import { randomBytes } from "crypto";
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcrypt";
+import { sendRegistrationEmail } from "@/lib/email";
+import { uploadFile } from "@/lib/upload";
 
 export async function POST(req: NextRequest) {
   try {
-    const {
-      name,
-      email,
-      phone,
-      address,
-      city,
-      state,
-      country,
-      pincode,
-      schoolId,
-    } = await req.json();
+    const formData = await req.formData();
+    const name = formData.get("name") as string;
+    const email = formData.get("email") as string;
+    const phone = formData.get("phone") as string;
+    const address = formData.get("address") as string;
+    const city = formData.get("city") as string;
+    const state = formData.get("state") as string;
+    const country = formData.get("country") as string;
+    const pincode = formData.get("pincode") as string;
+    const schoolId = formData.get("schoolId") as string;
+    const profilePicFile = formData.get("profilePic") as File | null;
 
+    // Validate required fields
     if (
       !name ||
       !email ||
@@ -27,56 +29,24 @@ export async function POST(req: NextRequest) {
       !state ||
       !country ||
       !pincode ||
-      !schoolId
+      !schoolId ||
+      !profilePicFile
     ) {
       return NextResponse.json(
         { error: "All fields are required." },
         { status: 400 }
       );
     }
-    const schoolExists = await prisma.school.findUnique({
-      where: { id: schoolId },
-    });
 
-    if (!schoolExists) {
-      return NextResponse.json(
-        { error: "School not found with the provided ID." },
-        { status: 404 }
-      );
-    }
 
-    const existingParent = await prisma.parent.findFirst({
-      where: {
-        OR: [{ email }],
-      },
-    });
-
-    if (existingParent) {
-      return NextResponse.json(
-        {
-          error: "A parent with this email or phone already exists.",
-        },
-        { status: 400 }
-      );
-    }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { publicId, url } = await uploadFile(profilePicFile, "profile_pics");
 
     const tempPassword = randomBytes(8).toString("hex");
     const hashedPassword = await bcrypt.hash(tempPassword, 10);
 
+  
     const user = await prisma.user.create({
-      data: {
-        email,
-        password: hashedPassword,
-        role: "parent",
-        school: {
-          connect: { id: schoolId },
-        },
-      },
-    });
-
-    await sendRegistrationEmail(email, tempPassword);
-
-    const parent = await prisma.parent.create({
       data: {
         name,
         email,
@@ -86,31 +56,38 @@ export async function POST(req: NextRequest) {
         state,
         country,
         pincode,
+        profilePic: url, 
+        password: hashedPassword,
+        role: "parent",
         school: {
           connect: { id: schoolId },
-        },
-        user: {
-          connect: { id: user.id },
         },
       },
     });
 
-    console.log("Parent Registered Successfully", parent);
+    // Send registration email 
+    await sendRegistrationEmail(email, tempPassword);
 
-    return NextResponse.json({
-      status: 200,
-      message: "Parent Registered Successfully",
-      data: parent,
+    // Create teacher 
+    const parent = await prisma.parent.create({
+      data: {
+        user: {
+          connect: { id: user.id },
+        },
+        school: {
+          connect: { id: schoolId },
+        },
+      },
     });
-  } catch (error) {
-    console.error("Error registering parent:", error);
-
-    if (error instanceof Error) {
-      console.error("Error details:", error.stack);
-    }
 
     return NextResponse.json(
-      { error: "Something went wrong. Please try again later." },
+      { message: "Parent created successfully", parent },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error("Error Parent teacher:", error);
+    return NextResponse.json(
+      { error: "Something went wrong. Please try again." },
       { status: 500 }
     );
   }

@@ -3,21 +3,23 @@ import { randomBytes } from "crypto";
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcrypt";
 import { sendRegistrationEmail } from "@/lib/email";
+import { uploadFile } from "@/lib/upload";
 
 export async function POST(req: NextRequest) {
   try {
-    const {
-      name,
-      email,
-      phone,
-      address,
-      city,
-      state,
-      country,
-      pincode,
-      schoolId,
-    } = await req.json();
+    const formData = await req.formData();
+    const name = formData.get("name") as string;
+    const email = formData.get("email") as string;
+    const phone = formData.get("phone") as string;
+    const address = formData.get("address") as string;
+    const city = formData.get("city") as string;
+    const state = formData.get("state") as string;
+    const country = formData.get("country") as string;
+    const pincode = formData.get("pincode") as string;
+    const schoolId = formData.get("schoolId") as string;
+    const profilePicFile = formData.get("profilePic") as File | null;
 
+    // Validate required fields
     if (
       !name ||
       !email ||
@@ -27,59 +29,24 @@ export async function POST(req: NextRequest) {
       !state ||
       !country ||
       !pincode ||
-      !schoolId
+      !schoolId ||
+      !profilePicFile
     ) {
       return NextResponse.json(
-        {
-          error: "All fields are required.",
-        },
+        { error: "All fields are required." },
         { status: 400 }
       );
     }
 
-    const schoolExists = await prisma.school.findUnique({
-      where: { id: schoolId },
-    });
 
-    if (!schoolExists) {
-      return NextResponse.json(
-        { error: "School not found with given ID" },
-        { status: 404 }
-      );
-    }
-
-    const existingAccount = await prisma.account.findFirst({
-      where: {
-        OR: [{ email }],
-      },
-    });
-
-    if (existingAccount) {
-      return NextResponse.json(
-        { error: "An Account with this email already exists" },
-        { status: 400 }
-      );
-    }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { publicId, url } = await uploadFile(profilePicFile, "profile_pics");
 
     const tempPassword = randomBytes(8).toString("hex");
     const hashedPassword = await bcrypt.hash(tempPassword, 10);
 
+  
     const user = await prisma.user.create({
-      data: {
-        email,
-        password: hashedPassword,
-        role: "account",
-        school: {
-          connect: {
-            id: schoolId,
-          },
-        },
-      },
-    });
-
-    await sendRegistrationEmail(email, tempPassword);
-
-    const account = await prisma.account.create({
       data: {
         name,
         email,
@@ -89,35 +56,38 @@ export async function POST(req: NextRequest) {
         state,
         country,
         pincode,
+        profilePic: url, 
+        password: hashedPassword,
+        role: "account",
         school: {
-          connect: {
-            id: schoolId,
-          },
-        },
-        user: {
-          connect: {
-            id: user.id,
-          },
+          connect: { id: schoolId },
         },
       },
     });
 
-    console.log("Account Registered", account);
+    // Send registration email 
+    await sendRegistrationEmail(email, tempPassword);
+
+    // Create teacher 
+    const account = await prisma.account.create({
+      data: {
+        user: {
+          connect: { id: user.id },
+        },
+        school: {
+          connect: { id: schoolId },
+        },
+      },
+    });
 
     return NextResponse.json(
-      {
-        message: "Account Registered Successfully",
-        account,
-      },
+      { message: "Accounts created successfully", account },
       { status: 200 }
     );
   } catch (error) {
-    console.log("something Went Wrong ", error);
-
+    console.error("Error creating Accounts:", error);
     return NextResponse.json(
-      {
-        error: "Something Went wrong please try again later",
-      },
+      { error: "Something went wrong. Please try again." },
       { status: 500 }
     );
   }

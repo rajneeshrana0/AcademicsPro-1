@@ -1,23 +1,25 @@
-import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/db";
-import bcrypt from "bcrypt";
 import { randomBytes } from "crypto";
+import { NextRequest, NextResponse } from "next/server";
+import bcrypt from "bcrypt";
 import { sendRegistrationEmail } from "@/lib/email";
+import { uploadFile } from "@/lib/upload";
 
 export async function POST(req: NextRequest) {
   try {
-    const {
-      name,
-      email,
-      phone,
-      address,
-      city,
-      state,
-      country,
-      pincode,
-      schoolId,
-    } = await req.json();
+    const formData = await req.formData();
+    const name = formData.get("name") as string;
+    const email = formData.get("email") as string;
+    const phone = formData.get("phone") as string;
+    const address = formData.get("address") as string;
+    const city = formData.get("city") as string;
+    const state = formData.get("state") as string;
+    const country = formData.get("country") as string;
+    const pincode = formData.get("pincode") as string;
+    const schoolId = formData.get("schoolId") as string;
+    const profilePicFile = formData.get("profilePic") as File | null;
 
+    // Validate required fields
     if (
       !name ||
       !email ||
@@ -27,7 +29,8 @@ export async function POST(req: NextRequest) {
       !state ||
       !country ||
       !pincode ||
-      !schoolId
+      !schoolId ||
+      !profilePicFile
     ) {
       return NextResponse.json(
         { error: "All fields are required." },
@@ -35,50 +38,15 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const schoolExists = await prisma.school.findUnique({
-      where: { id: schoolId },
-    });
 
-    if (!schoolExists) {
-      return NextResponse.json(
-        { error: "School not found with the provided ID." },
-        { status: 404 }
-      );
-    }
-
-    const existingTransport = await prisma.transport.findFirst({
-      where: {
-        OR: [{ email }],
-      },
-    });
-
-    if (existingTransport) {
-      return NextResponse.json(
-        {
-          error: "A transporter with this email or phone already exists.",
-        },
-        { status: 400 }
-      );
-    }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { publicId, url } = await uploadFile(profilePicFile, "profile_pics");
 
     const tempPassword = randomBytes(8).toString("hex");
-
     const hashedPassword = await bcrypt.hash(tempPassword, 10);
 
+  
     const user = await prisma.user.create({
-      data: {
-        email,
-        password: hashedPassword,
-        role: "transport",
-        school: {
-          connect: { id: schoolId },
-        },
-      },
-    });
-
-    await sendRegistrationEmail(email, tempPassword);
-
-    const transport = await prisma.transport.create({
       data: {
         name,
         email,
@@ -88,27 +56,38 @@ export async function POST(req: NextRequest) {
         state,
         country,
         pincode,
+        profilePic: url, 
+        password: hashedPassword,
+        role: "transport",
         school: {
           connect: { id: schoolId },
-        },
-        user: {
-          connect: { id: user.id },
         },
       },
     });
 
-    console.log("Transport Registered", transport);
+    // Send registration email 
+    await sendRegistrationEmail(email, tempPassword);
+
+    // Create teacher 
+    const transport = await prisma.transport.create({
+      data: {
+        user: {
+          connect: { id: user.id },
+        },
+        school: {
+          connect: { id: schoolId },
+        },
+      },
+    });
 
     return NextResponse.json(
-      { message: "Transport registered successfully", transport },
+      { message: "Transport created successfully", transport },
       { status: 200 }
     );
   } catch (error) {
-    console.error("Error registering transport:", error);
-
- 
+    console.error("Error creating Transport:", error);
     return NextResponse.json(
-      { error: "Something went wrong. Please try again later." },
+      { error: "Something went wrong. Please try again." },
       { status: 500 }
     );
   }

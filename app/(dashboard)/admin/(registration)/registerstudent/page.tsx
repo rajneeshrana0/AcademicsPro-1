@@ -1,217 +1,104 @@
-'use client';
+"use client"
+import { useRef,  useEffect } from "react";
+import { useSession } from "next-auth/react";  
+import { useFormData } from "@/hooks/useFormData";  
 
-import { useFetch } from '@/hooks/useFetch';
-import { useEffect, useState } from 'react';
+export default function Student() {
+  const { data: session } = useSession();  
+  const schoolId = session?.user?.schoolId; 
 
-const CreateStudent = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    address: '',
-    city: '',
-    state: '',
-    country: '',
-    pincode: '',
-  });
+  const nameRef = useRef<HTMLInputElement | null>(null);
+  const emailRef = useRef<HTMLInputElement | null>(null);
+  const phoneRef = useRef<HTMLInputElement | null>(null);
+  const addressRef = useRef<HTMLInputElement | null>(null);
+  const cityRef = useRef<HTMLInputElement | null>(null);
+  const stateRef = useRef<HTMLInputElement | null>(null);
+  const countryRef = useRef<HTMLInputElement | null>(null);
+  const pincodeRef = useRef<HTMLInputElement | null>(null);
+  const profilePicRef = useRef<HTMLInputElement | null>(null);
 
-  const [schoolId, setSchoolId] = useState<string | null>(null); // State to store the school ID
-  const [loading, setLoading] = useState(false); // Loading state for API request
-  const [error, setError] = useState<string | null>(null); // Error state for API request
-
-  // Fetch school ID from the session
-  interface SessionData {
-    user: {
-      schoolId: string;
-    };
-  }
-
-  const { data: sessionData, error: sessionError } = useFetch<SessionData>('/api/auth/session');
+  const { isSubmitting, error, success, submitForm } = useFormData();  
 
   useEffect(() => {
-    if (sessionData) {
-      console.log('Session Data Fetched:', sessionData); // Log session data
-      if (sessionData.user.schoolId) {
-        setSchoolId(sessionData.user.schoolId);
-        console.log('School ID set:', sessionData.user.schoolId); // Log school ID
-      } else {
-        console.warn('No school ID found in session data'); // Warning if school ID is missing
-      }
+    if (!schoolId) {
+      setError("School ID is missing. Please ensure you are logged in.");
     }
-    if (sessionError) {
-      console.error('Error fetching session:', sessionError); // Log session fetch error
-    }
-  }, [sessionData, sessionError]);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-    console.log(`Updated ${name}:`, value); // Log form input changes
-  };
+  }, [schoolId]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
     if (!schoolId) {
-      console.error('Unable to determine school ID. Please ensure you are logged in.');
-      alert('Unable to determine school ID. Please ensure you are logged in.');
+      setError("School ID is required.");
       return;
     }
 
-    const payload = {
-      ...formData,
-      schoolId,
-    };
+    const formData = new FormData();
+    formData.append("name", nameRef.current?.value || "");
+    formData.append("email", emailRef.current?.value || "");
+    formData.append("phone", phoneRef.current?.value || "");
+    formData.append("address", addressRef.current?.value || "");
+    formData.append("city", cityRef.current?.value || "");
+    formData.append("state", stateRef.current?.value || "");
+    formData.append("country", countryRef.current?.value || "");
+    formData.append("pincode", pincodeRef.current?.value || "");
+    formData.append("schoolId", schoolId); 
+    if (profilePicRef.current?.files) formData.append("profilePic", profilePicRef.current.files[0]);
 
-    console.log('Submitting payload:', payload); // Log payload being sent to the API
-
-    setLoading(true);
-    setError(null);
-
-    try {
-      const response = await fetch('/api/auth/studentregister', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(payload),
-      });
-
-      const data = await response.json();
-
-      setLoading(false);
-
-      if (response.ok && data.success) {
-        alert('Student Created Successfully');
-        setFormData({
-          name: '',
-          email: '',
-          phone: '',
-          address: '',
-          city: '',
-          state: '',
-          country: '',
-          pincode: '',
-        });
-      } else {
-        alert(data?.message || 'An error occurred while creating the student.');
-        console.warn('API Error:', data?.message);
-      }
-    } catch (error) {
-      setLoading(false);
-      console.error('Error creating student:', error);
-      setError('Failed to create the student. Please try again.');
-    }
+    // Use the  hook to submit the form
+    submitForm({
+      url: "/api/auth/studentregister",
+      formData,
+    });
   };
 
   return (
-    <div className="max-w-md mx-auto mt-8 p-4 bg-white shadow-md rounded">
-      <h1 className="text-xl font-semibold text-gray-800 mb-4">Create Student</h1>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Name</label>
-          <input
-            type="text"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            className="mt-1 block w-full border border-gray-300 rounded-md p-2"
-            required
-          />
+    <div className="max-w-lg mx-auto p-8 bg-white shadow-lg rounded-lg mt-10">
+      <h2 className="text-3xl font-semibold text-center text-gray-700 mb-6">Register Student</h2>
+
+      {error && <div className="text-red-500 text-center mb-4">{error}</div>}
+      {success && <div className="text-green-500 text-center mb-4">{success}</div>}
+
+      <form onSubmit={handleSubmit} encType="multipart/form-data">
+        <div className="space-y-4">
+          {["Name", "Email", "Phone", "Address", "City", "State", "Country", "Pincode"].map((label) => (
+            <div key={label}>
+              <label className="block text-gray-600">{label}</label>
+              <input
+                type="text"
+                ref={label === "Name" ? nameRef : label === "Email" ? emailRef : label === "Phone" ? phoneRef : label === "Address" ? addressRef : label === "City" ? cityRef : label === "State" ? stateRef : label === "Country" ? countryRef : pincodeRef}
+                className="w-full px-4 py-2 border text-black border-gray-300 rounded-lg"
+                required
+              />
+            </div>
+          ))}
+
+          <div>
+            <label className="block text-gray-600">Profile Picture</label>
+            <input
+              type="file"
+              ref={profilePicRef}
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg"
+              required
+            />
+          </div>
+
+          <div className="flex justify-center mt-6">
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className={`w-1/2 py-3 px-6 text-white font-semibold rounded-lg ${isSubmitting ? "bg-gray-500" : "bg-blue-500 hover:bg-blue-600"}`}
+            >
+              {isSubmitting ? "Submitting..." : "Register Student"}
+            </button>
+          </div>
         </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Email</label>
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            className="mt-1 block w-full border border-gray-300 rounded-md p-2"
-            required
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Phone</label>
-          <input
-            type="text"
-            name="phone"
-            value={formData.phone}
-            onChange={handleChange}
-            className="mt-1 block w-full border border-gray-300 rounded-md p-2"
-            required
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Address</label>
-          <input
-            type="text"
-            name="address"
-            value={formData.address}
-            onChange={handleChange}
-            className="mt-1 block w-full border border-gray-300 rounded-md p-2"
-            required
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700">City</label>
-          <input
-            type="text"
-            name="city"
-            value={formData.city}
-            onChange={handleChange}
-            className="mt-1 block w-full border border-gray-300 rounded-md p-2"
-            required
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700">State</label>
-          <input
-            type="text"
-            name="state"
-            value={formData.state}
-            onChange={handleChange}
-            className="mt-1 block w-full border border-gray-300 rounded-md p-2"
-            required
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Country</label>
-          <input
-            type="text"
-            name="country"
-            value={formData.country}
-            onChange={handleChange}
-            className="mt-1 block w-full border border-gray-300 rounded-md p-2"
-            required
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Pincode</label>
-          <input
-            type="text"
-            name="pincode"
-            value={formData.pincode}
-            onChange={handleChange}
-            className="mt-1 block w-full border border-gray-300 rounded-md p-2"
-            required
-          />
-        </div>
-        <button
-          type="submit"
-          className="block w-full bg-blue-500 text-white py-2 px-4 rounded mt-4"
-          disabled={loading || !schoolId}
-        >
-          {loading ? 'Creating...' : 'Create Student'}
-        </button>
       </form>
-      {!schoolId && <p className="text-red-500 mt-2">Fetching school ID...</p>}
-      {error && <p className="text-red-500 mt-2">{error}</p>}
-      {/* {sessionError && <p className="text-red-500 mt-2">Error fetching session: {sessionError.message}</p>} */}
     </div>
   );
-};
+}
 
-export default CreateStudent;
+
+function setError(error: string): void {
+    throw new Error(error);
+}
+
