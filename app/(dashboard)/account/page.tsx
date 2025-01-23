@@ -6,9 +6,9 @@ export default function Page() {
   return (
     <div>
       <h1> 
-        Account ADmin Page</h1>
+        Account Admin Page</h1>
       {session ? (
-      <p className="text-2xl font-bold">Welcome, {session.user?.email}</p>
+      <p className="text-2xl font-bold">Welcome, {session.user?.name}</p>
     ) : (
       <p>Please sign in to register a new admin.</p>
     )}
