@@ -7,7 +7,13 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
     try {
         const user = await prisma.user.findUnique({
             where: { id },
-        });
+        }) as { password?: string | null } | null;
+
+        if (user) {
+            if (user.password) {
+                delete user.password;
+            }
+        }
 
         if (!user) {
             return NextResponse.json(

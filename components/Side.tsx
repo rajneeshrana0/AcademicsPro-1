@@ -38,7 +38,7 @@ export function SidebarDemo({ children }: { children: React.ReactNode }) {
       },
       {
         label: "Profile",
-        href: "/superadmin/profile",
+        href: "/profile",
         icon: <IconArrowLeft className="text-primary-foreground h-5 w-5 flex-shrink-0" />
       },
     ],
@@ -98,7 +98,7 @@ export function SidebarDemo({ children }: { children: React.ReactNode }) {
 
       {
         label: "Profile",
-        href: "/admin/profile",
+        href: "/profile",
         icon: <IconArrowLeft className="text-primary-foreground h-5 w-5 flex-shrink-0" />
       },
     ],
@@ -110,7 +110,7 @@ export function SidebarDemo({ children }: { children: React.ReactNode }) {
       },
       {
         label: "Profile",
-        href: "/teacher/profile",
+        href: "/profile",
         icon: <IconUserBolt className="text-primary-foreground h-5 w-5 flex-shrink-0" />
       },
       {
@@ -127,7 +127,7 @@ export function SidebarDemo({ children }: { children: React.ReactNode }) {
       },
       {
         label: "Profile",
-        href: "/student/profile",
+        href: "/profile",
         icon: <IconUserBolt className="text-primary-foreground h-5 w-5 flex-shrink-0" />
       },
       {
@@ -144,7 +144,7 @@ export function SidebarDemo({ children }: { children: React.ReactNode }) {
       },
       {
         label: "Profile",
-        href: "/student/profile",
+        href: "/profile",
         icon: <IconUserBolt className="text-primary-foreground h-5 w-5 flex-shrink-0" />
       },
       {
@@ -161,7 +161,7 @@ export function SidebarDemo({ children }: { children: React.ReactNode }) {
       },
       {
         label: "Profile",
-        href: "/student/profile",
+        href: "/profile",
         icon: <IconUserBolt className="text-primary-foreground h-5 w-5 flex-shrink-0" />
       },
       {
@@ -178,7 +178,7 @@ export function SidebarDemo({ children }: { children: React.ReactNode }) {
       },
       {
         label: "Profile",
-        href: "/student/profile",
+        href: "/profile",
         icon: <IconUserBolt className="text-primary-foreground h-5 w-5 flex-shrink-0" />
       },
       {
@@ -195,7 +195,7 @@ export function SidebarDemo({ children }: { children: React.ReactNode }) {
       },
       {
         label: "Profile",
-        href: "/student/profile",
+        href: "/profile",
         icon: <IconUserBolt className="text-primary-foreground h-5 w-5 flex-shrink-0" />
       },
       {
@@ -212,7 +212,7 @@ export function SidebarDemo({ children }: { children: React.ReactNode }) {
       },
       {
         label: "Profile",
-        href: "/student/profile",
+        href: "/profile",
         icon: <IconUserBolt className="text-primary-foreground h-5 w-5 flex-shrink-0" />
       },
       {
