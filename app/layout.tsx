@@ -5,7 +5,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   
   title: "Academics-Pro",
-  description: "Created Ny Academics-pro & Team",
+  description: "Created By Academics-pro & Team",
  
 };
 

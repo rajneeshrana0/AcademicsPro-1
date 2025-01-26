@@ -17,6 +17,12 @@ export default {
       colors: {
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
+        rajneeshsky :"#C3EBFA",
+        rajneeshskyLight :"#EDF9FD",
+        rajneeshpurple: "#d0f8fb",
+        rajneeshpurpleLight: "#F1F0FF",
+        rajneeshYellow: "#FAE27C",
+        rajneeshYellowLight: "#FEFCE8",
         card: {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))',

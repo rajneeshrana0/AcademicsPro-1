@@ -14,5 +14,6 @@ export default function Home() {
         {/* <h1 className="text-4xl text-foreground font-bold text-center flex justify-center items-center" > We are Facing Down Time Sorry 🙏 For inconvenience We are back 🔜 :) </h1> */}
       </main>
     </SessionProvider>
+
   );
 }
